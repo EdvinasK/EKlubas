@@ -1,0 +1,27 @@
+﻿@model IEnumerable<MathTopic>
+@{
+    ViewData["Title"] = "Matematika";
+}
+
+<div class="well">
+    <h2>Matematikos užduotys <span class="glyphicon glyphicon-apple" aria-hidden="true"></span></h2>
+</div>
+<div class="row">
+    @foreach(var topic in Model)
+    {
+        <div class="col-sm-4">
+            <a asp-action="@topic.Link" asp-controller="@topic.Topic" asp-route-difficultyLevel="@topic.DifficultyLevel">
+                <div class="panel @topic.DifficultyCssStyle">
+                    <div class="panel-heading">
+                        <h3>@topic.Name</h3>
+                    </div>
+                    <ul class="list-group">
+                        <li class="list-group-item"><strong>Aprašymas:</strong> @topic.Description</li>
+                        <li class="list-group-item"><strong>Sunkumas:</strong> @topic.DifficultyText</li>
+                        <li class="list-group-item"><strong>Trukmė:</strong> @topic.DurationInMinutes min.</li>
+                    </ul>
+                </div>
+            </a>
+        </div>
+    }
+</div>

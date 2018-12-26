@@ -1,0 +1,19 @@
+﻿@model ErrorViewModel
+@{
+    ViewData["Title"] = "Klaida";
+}
+
+<h1 class="text-danger">Klaida.</h1>
+<h2 class="text-danger">Įvyko klaida bandant įvykdyti procesą.</h2>
+
+@if (Model.ShowRequestId)
+{
+    <p>
+        <strong>Request ID:</strong> <code>@Model.RequestId</code>
+    </p>
+}
+
+<h3>Development rėžimas</h3>
+<p>
+    Pakeičiant <strong>Development</strong> rėžimą sistema gražins detalesnius pranešimus.
+</p>

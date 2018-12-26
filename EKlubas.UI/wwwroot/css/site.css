@@ -1,0 +1,120 @@
+﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification\ 
+for details on configuring this project to bundle and minify static web assets. */
+body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+    background-image: url("/images/TanDePlan_SampleBg1.jpg");
+}
+
+.body-content {
+    background: rgb(255, 255, 255);
+}
+
+/* Wrapping element */
+/* Set some basic padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Carousel */
+.carousel-caption p {
+    font-size: 20px;
+    line-height: 1.4;
+}
+
+/* Make .svg files in the carousel display properly in older browsers */
+.carousel-inner .item img[src$=".svg"] {
+    width: 100%;
+}
+
+/* QR code generator */
+#qrCode {
+    margin: 15px;
+}
+
+/* Hide/rearrange for smaller screens */
+@media screen and (max-width: 767px) {
+    /* Hide captions */
+    .carousel-caption {
+        display: none;
+    }
+}
+
+.glyphicon.glyphicon-education {
+    font-size: 50px;
+    color:green;
+}
+
+
+
+
+
+/*Custom CSS*/
+.task-list {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    display: block;
+    clear:both;
+}
+
+.task-list li {
+    counter-increment: step-counter;
+    margin-bottom: 20px;
+    float:left;
+    width: 300px;
+}
+
+.task-list li:last-child {
+    visibility: hidden;
+    float:none;
+    clear:both;
+}
+
+.task-list li .task-list-item {
+    padding: 0 5px;
+    border-bottom: 1px solid rgb(0,200,200);
+    border-right: 1px solid rgb(0,200,200);
+    border-bottom-right-radius: 4px;
+}
+
+.task-list li::before {
+    content: counter(step-counter)'.)';
+    font-size: 80%;
+    background-color: #004f55;
+    color: white;
+    font-weight: bold;
+    padding: 2px 8px;
+    border-radius: 3px;
+}
+
+.task-header {
+    margin-bottom: 40px;
+    float:left;
+}
+
+.helper-header {
+    margin-bottom: 40px;
+    float: right;
+    clear:right;
+}
+
+.task-answer {
+    display: none;
+    padding: 5px 7px;
+    margin-left: 8px;
+}
+
+.task-list-item:hover + .task-answer {
+    display: inline;
+    position: absolute;
+    background: #ffffff;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    color: #6c6c6c;
+}
+
+.padb-1 {
+    margin-bottom: 30px;
+}
