@@ -1,0 +1,25 @@
+﻿@model IEnumerable<EquationResult<string, string>>
+@{
+    ViewData["Title"] = "Uždaviniai";
+}
+
+<div class="task-header">
+    <h2>Matematikos užduotys</h2>
+    <h3>@ViewBag.TopicTheme</h3>
+    <h4>Ar lygybė teisinga?</h4>
+</div>
+<div class="helper-header well well-sm text-center">
+    <span class="glyphicon glyphicon-education" aria-hidden="true"></span>
+    <p>Atsakymus galite pamatyti privesdami žymeklį(Cursor) prie užduoties.</p>
+    <p>Norint gauti naujas užduotis atnaujinkite puslapį.</p>
+
+</div>
+<div>
+    <ol class="task-list">
+        @foreach (var task in Model)
+        {
+            <li><span class="task-list-item">@task.Message</span><span class="label label-info task-answer">@task.Result</span></li>
+        }
+        <li></li>
+    </ol>
+</div>
