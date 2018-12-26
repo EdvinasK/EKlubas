@@ -12,8 +12,8 @@ To use this code it will be required for you have these packages already install
 
 ```
 Mandatory:
-Visual Studio 2015 :arrow_up:
-netcore 2.1 :arrow_up:
+Visual Studio 2015 +
+netcore 2.1 +
 
 Optionally:
 Github
