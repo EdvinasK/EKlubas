@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EKlubas.Domain.Services.Math
+namespace EKlubas.Common.Services.Math
 {
     public static class MathServices
     {

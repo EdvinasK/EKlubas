@@ -5,7 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Models\" />
+    <ProjectReference Include="..\EKlubas.Common\EKlubas.Common.csproj" />
+    <ProjectReference Include="..\EKlubas.Domain\EKlubas.Domain.csproj" />
   </ItemGroup>
 
 </Project>

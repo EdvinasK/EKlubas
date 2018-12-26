@@ -37,7 +37,7 @@ namespace EKlubas.UI
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection"),
-                    x => x.MigrationsAssembly("EKlubas.Persistence")));
+                    x => x.MigrationsAssembly("EKlubas.UI")));
             services.AddDefaultIdentity<IdentityUser>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
