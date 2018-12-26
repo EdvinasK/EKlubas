@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using EKlubas.Common.Services.Math;
 using EKlubas.Domain;
+using EKlubas.Domain.DTO;
 using EKlubas.Domain.DTO.Classifiers;
-using EKlubas.Domain.Services.Math;
 
-namespace EKlubas.Domain.POCO.Tasks.Math
+namespace EKlubas.UI.Services.Math.Equality
 {
     public class Equation
     {
@@ -17,26 +18,26 @@ namespace EKlubas.Domain.POCO.Tasks.Math
         /// <param name="taskAmount"></param>
         /// <param name="difficultyVariety">Currenly goes up to 8 and gives different difficulty tasks.</param>
         /// <returns></returns>
-        public List<DTO.EquationResult<string, string>> GetEqualityTaskAndResult(
+        public List<EquationResult<string, string>> GetEqualityTaskAndResult(
             int difficultyLevel,
             bool isVariableTask = false,
             bool isEqualityTask = true,
             int taskAmount = 30)
         {
-            var tasks = new List<DTO.EquationResult<string, string>>();
-            var equationMessage = new DTO.EquationMessage<string[], string>();
+            var tasks = new List<EquationResult<string, string>>();
+            var equationMessage = new EquationMessage<string[], string>();
             var equalityTaskTextBuilder = new StringBuilder();
             var stringBuildFormat = "";
             var taskFormatRandomizer = 0;
-            int difficultyVariety = difficultyLevel==1 ? 4
-                                        : difficultyLevel == 2 ? 7 
+            int difficultyVariety = difficultyLevel == 1 ? 4
+                                        : difficultyLevel == 2 ? 7
                                         : 8;
 
 
 
             for (int i = 0; i < taskAmount; i++)
             {
-                var equationResult = new DTO.EquationResult<string, string>();
+                var equationResult = new EquationResult<string, string>();
 
                 taskFormatRandomizer = MathServices.GetRandomNumber(1, difficultyVariety);
                 if (taskFormatRandomizer == 1)
@@ -79,9 +80,9 @@ namespace EKlubas.Domain.POCO.Tasks.Math
                 equalityTaskTextBuilder.AppendFormat(stringBuildFormat,
                                                                 equationMessage.ReturnValues);
 
-                if(!isVariableTask && isEqualityTask)
-                    equationResult.Result = "Ats: " + (equationMessage.Information=="True" ? "Teisinga" : "Neteisinga");
-                else if(isVariableTask && !isEqualityTask)
+                if (!isVariableTask && isEqualityTask)
+                    equationResult.Result = "Ats: " + (equationMessage.Information == "True" ? "Teisinga" : "Neteisinga");
+                else if (isVariableTask && !isEqualityTask)
                     equationResult.Result = "Ats: X yra " + equationMessage.Information;
                 else
                     equationResult.Result = "Ats: X " + equationMessage.Information;
@@ -99,13 +100,13 @@ namespace EKlubas.Domain.POCO.Tasks.Math
         /// </summary>
         /// <param name="difficulty">Difficulty of the specified task.</param>
         /// <returns>Returns equality task string array.</returns>
-        public DTO.EquationMessage<string[], string> GetEqualityBuilderInput(TaskDifficulty difficulty,
+        public EquationMessage<string[], string> GetEqualityBuilderInput(TaskDifficulty difficulty,
                                                                             bool isVariableTask = false,
                                                                             bool isEqualityTask = true,
-                                                                            int minTaskValue = 1, 
+                                                                            int minTaskValue = 1,
                                                                             int maxTaskValue = 10)
         {
-            var message = new DTO.EquationMessage<string[], string>();
+            var message = new EquationMessage<string[], string>();
             var input = new StringBuilder();
             var leftSideCalc = 0;
             var rightSideCalc = 0;
@@ -113,8 +114,8 @@ namespace EKlubas.Domain.POCO.Tasks.Math
             var tempSign = "";
             var tempEqualSign = "";
 
-            tempRandNumber = !isVariableTask?MathServices.GetRandomNumber(minTaskValue, maxTaskValue).ToString():"x";
-            leftSideCalc = !isVariableTask? int.Parse(tempRandNumber):0;
+            tempRandNumber = !isVariableTask ? MathServices.GetRandomNumber(minTaskValue, maxTaskValue).ToString() : "x";
+            leftSideCalc = !isVariableTask ? int.Parse(tempRandNumber) : 0;
             input.Append(tempRandNumber + ' ');
 
             if (difficulty == TaskDifficulty.VeryEasy ||
@@ -141,7 +142,7 @@ namespace EKlubas.Domain.POCO.Tasks.Math
                 }
             }
 
-            tempEqualSign = isEqualityTask?MathServices.GetRandomEqualitySign():"=";
+            tempEqualSign = isEqualityTask ? MathServices.GetRandomEqualitySign() : "=";
             tempRandNumber = MathServices.GetRandomNumber(minTaskValue, maxTaskValue).ToString();
             rightSideCalc = int.Parse(tempRandNumber);
             input.Append(tempEqualSign + ' ');
@@ -174,7 +175,7 @@ namespace EKlubas.Domain.POCO.Tasks.Math
 
             if (!isVariableTask && isEqualityTask)
                 message.Information = MathServices.IsEquationTrue(leftSideCalc, rightSideCalc, tempEqualSign).ToString();
-            else if(isVariableTask && !isEqualityTask)
+            else if (isVariableTask && !isEqualityTask)
                 message.Information = MathServices.CalculateEquation(leftSideCalc, rightSideCalc).ToString();
             else
                 message.Information = tempEqualSign + " " + MathServices.CalculateEquation(leftSideCalc, rightSideCalc).ToString();

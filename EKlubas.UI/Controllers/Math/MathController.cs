@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using EKlubas.Domain.POCO.Tasks.Math;
+using EKlubas.UI.Services.Math.Equality;
 using Microsoft.AspNetCore.Mvc;
 
-namespace EKlubas.UI.Controllers
+namespace EKlubas.UI.Controllers.Math
 {
     public class MathController : Controller
     {
