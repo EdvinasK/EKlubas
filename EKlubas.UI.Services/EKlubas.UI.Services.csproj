@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\EKlubas.Common\EKlubas.Common.csproj" />
+    <ProjectReference Include="..\EKlubas.Contracts\EKlubas.Contracts.csproj" />
     <ProjectReference Include="..\EKlubas.Domain\EKlubas.Domain.csproj" />
   </ItemGroup>
 

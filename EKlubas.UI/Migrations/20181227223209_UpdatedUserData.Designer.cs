@@ -4,14 +4,16 @@ using EKlubas.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EKlubas.UI.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20181227223209_UpdatedUserData")]
+    partial class UpdatedUserData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -32,43 +34,6 @@ namespace EKlubas.UI.Migrations
                     b.HasIndex("Name");
 
                     b.ToTable("Cities");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "Vilnius"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "Kaunas"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Name = "Klaipėda"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Name = "Šiauliai"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Name = "Panevėžys"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            Name = "Palanga"
-                        },
-                        new
-                        {
-                            Id = 7,
-                            Name = "Marijampolė"
-                        });
                 });
 
             modelBuilder.Entity("EKlubas.Domain.Identities.IdentityRole", b =>

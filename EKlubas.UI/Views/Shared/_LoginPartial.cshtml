@@ -1,7 +1,8 @@
 @using Microsoft.AspNetCore.Identity
+@using EKlubas.Domain.Users
 
-@inject SignInManager<IdentityUser> SignInManager
-@inject UserManager<IdentityUser> UserManager
+@inject SignInManager<EKlubasUser> SignInManager
+@inject UserManager<EKlubasUser> UserManager
 
 @if (SignInManager.IsSignedIn(User))
 {
