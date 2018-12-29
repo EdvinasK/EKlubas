@@ -12,6 +12,12 @@ using Microsoft.EntityFrameworkCore;
 using EKlubas.Persistence;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using EKlubas.Domain.Users;
+using Newtonsoft.Json.Serialization;
+using Newtonsoft.Json;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using EKlubas.Common.Services.Communication;
+using EKlubas.Contracts.Abstractions;
 
 namespace EKlubas.UI
 {
@@ -27,6 +33,8 @@ namespace EKlubas.UI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            IntegrateSimpleInjector(services);
+
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
@@ -38,10 +46,24 @@ namespace EKlubas.UI
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection"),
                     x => x.MigrationsAssembly("EKlubas.UI")));
-            services.AddDefaultIdentity<IdentityUser>()
-                .AddEntityFrameworkStores<ApplicationDbContext>();
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddIdentity<EKlubasUser, Domain.Identities.IdentityRole>()
+            .AddEntityFrameworkStores<ApplicationDbContext>();
+            // .AddDefaultTokenProviders();
+
+            services.AddSession(options =>
+            {
+                options.Cookie.Name = "EKlubasSession";
+                options.IdleTimeout = TimeSpan.FromMinutes(30);
+            });
+
+            services.AddMvc()
+                .AddJsonOptions(options =>
+                {
+                    options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+                    options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+                })
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -63,6 +85,7 @@ namespace EKlubas.UI
             app.UseCookiePolicy();
 
             app.UseAuthentication();
+            app.UseSession();
 
             app.UseMvc(routes =>
             {
@@ -70,6 +93,12 @@ namespace EKlubas.UI
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+        }
+
+        private void IntegrateSimpleInjector(IServiceCollection services)
+        {
+            services.AddTransient<IEmailSender, EmailSender>();
+            // services.AddTransient<IApplicationDbContext, ApplicationDbContext>();
         }
     }
 }

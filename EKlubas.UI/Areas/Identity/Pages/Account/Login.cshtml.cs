@@ -9,19 +9,25 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using EKlubas.Persistence;
+using EKlubas.Domain.Users;
 
 namespace EKlubas.UI.Areas.Identity.Pages.Account
 {
     [AllowAnonymous]
     public class LoginModel : PageModel
     {
-        private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly SignInManager<EKlubasUser> _signInManager;
+        private readonly UserManager<EKlubasUser> _userManager;
         private readonly ILogger<LoginModel> _logger;
 
-        public LoginModel(SignInManager<IdentityUser> signInManager, ILogger<LoginModel> logger)
+        public LoginModel(SignInManager<EKlubasUser> signInManager, 
+                                ILogger<LoginModel> logger,
+                                UserManager<EKlubasUser> userManager)
         {
             _signInManager = signInManager;
             _logger = logger;
+            _userManager = userManager;
         }
 
         [BindProperty]
@@ -78,7 +84,12 @@ namespace EKlubas.UI.Areas.Identity.Pages.Account
                 var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: true);
                 if (result.Succeeded)
                 {
+                    var user = await _userManager.FindByEmailAsync(Input.Email);
+
+                    user.LastLogin = DateTime.Now;
+
                     _logger.LogInformation("Naudotojas prijungtas.");
+                    await _userManager.UpdateAsync(user);
                     return LocalRedirect(returnUrl);
                 }
                 if (result.RequiresTwoFactor)

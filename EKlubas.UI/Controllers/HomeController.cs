@@ -9,6 +9,8 @@ using System.Text;
 using EKlubas.Domain;
 using EKlubas.Domain.DTO;
 using EKlubas.UI.Controllers.Math;
+using EKlubas.Persistence;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace EKlubas.UI.Controllers
 {
