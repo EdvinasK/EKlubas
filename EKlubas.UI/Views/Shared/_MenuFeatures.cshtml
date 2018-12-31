@@ -1,0 +1,25 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using EKlubas.Domain.Users
+
+@inject SignInManager<EKlubasUser> SignInManager
+
+<ul class="nav navbar-nav">
+    <li><a asp-area="" asp-controller="Home" asp-action="Index">Pradžia</a></li>
+    <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Uždaviniai<b class="caret"></b></a>
+        <ul class="dropdown-menu">
+            <li><a class="dd-task-item" asp-area="" asp-controller="Home" asp-action="MathTasks">Matematika</a></li>
+        </ul>
+    </li>
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Testai<b class="caret"></b></a>
+            <ul class="dropdown-menu">
+                <li><a class="dd-task-item" asp-area="" asp-controller="MathExam" asp-action="MathExamCatalog">Matematika</a></li>
+            </ul>
+        </li>
+    }
+    <li><a asp-area="" asp-controller="Home" asp-action="About">Apie</a></li>
+    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Kontaktai</a></li>
+</ul>

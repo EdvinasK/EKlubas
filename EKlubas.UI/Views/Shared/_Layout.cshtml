@@ -39,17 +39,7 @@
                 <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">EKlubas</a>
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Pradžia</a></li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Uždaviniai<b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dd-task-item" asp-area="" asp-controller="Home" asp-action="MathTasks">Matematika</a></li>
-                        </ul>
-                    </li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="About">Apie</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Kontaktai</a></li>
-                </ul>
+                <partial name="_MenuFeatures" />
                 <partial name="_LoginPartial" />
             </div>
         </div>
