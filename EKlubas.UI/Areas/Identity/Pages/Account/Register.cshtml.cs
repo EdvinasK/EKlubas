@@ -63,6 +63,7 @@ namespace EKlubas.UI.Areas.Identity.Pages.Account
 
             [Required(ErrorMessage = "{0} laukas privalomas.")]
             [StringLength(100, ErrorMessage = "{0} turi būti bent {2} ir daugiausiai {1} simbolių ilgio.", MinimumLength = 6)]
+            [RegularExpression(@"^((?=.*[a-z])(?=.*[A-Z])(?=.*\d)).+$", ErrorMessage = "Slaptažodis privalo turėti bent 1 didžiąją, mažąją raides, bent 1 simbolį ir skaičių.")]
             [DataType(DataType.Password)]
             [Display(Name = "Slaptažodis")]
             public string Password { get; set; }
