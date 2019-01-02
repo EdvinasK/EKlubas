@@ -47,7 +47,13 @@ namespace EKlubas.UI
                     Configuration.GetConnectionString("DefaultConnection"),
                     x => x.MigrationsAssembly("EKlubas.UI")));
 
-            services.AddIdentity<EKlubasUser, Domain.Identities.IdentityRole>()
+            services.AddIdentity<EKlubasUser, Domain.Identities.IdentityRole>(options =>
+            {
+                options.Password.RequiredLength = 6;
+                options.Password.RequireDigit = true;
+                options.Password.RequireUppercase = true;
+                options.Password.RequireLowercase = true;
+            })
             .AddEntityFrameworkStores<ApplicationDbContext>();
             // .AddDefaultTokenProviders();
 
