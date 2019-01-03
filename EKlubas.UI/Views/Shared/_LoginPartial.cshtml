@@ -9,6 +9,9 @@
     <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })" method="post" id="logoutForm" class="navbar-right">
         <ul class="nav navbar-nav navbar-right">
             <li>
+                <a class="text-success" href="#">@UserManager.Users.SingleOrDefault(u => u.UserName == User.Identity.Name).Coins <span class="glyphicon glyphicon-copyright-mark" aria-hidden="true"></span></a>
+            </li>
+            <li>
                 <a asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Sveiki, @UserManager.GetUserName(User)!</a>
             </li>
             <li>
