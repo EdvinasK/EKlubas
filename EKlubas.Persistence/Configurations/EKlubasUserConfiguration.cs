@@ -13,6 +13,9 @@ namespace EKlubas.Persistence.Configurations
     {
         public void Configure(EntityTypeBuilder<EKlubasUser> entity)
         {
+            entity.Property(e => e.Coins)
+                .HasDefaultValue(0);
+
             entity.Property(e => e.CreatedTime)
                 .HasColumnType("datetime")
                 .HasDefaultValueSql("'1900-01-01T00:00:00.000'");

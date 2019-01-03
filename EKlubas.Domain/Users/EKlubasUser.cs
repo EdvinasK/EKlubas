@@ -12,6 +12,7 @@ namespace EKlubas.Domain.Users
     {
         public string Nickname { get; set; }
         public DateTime BirthYear { get; set; }
+        public int Coins { get; set; }
         public int CityId { get; set; }
         public City City { get; set; }
         public DateTime CreatedTime { get; set; }
