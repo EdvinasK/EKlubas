@@ -1,4 +1,4 @@
-﻿using EKlubas.Domain.StudyTopic;
+﻿using EKlubas.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +18,7 @@ namespace EKlubas.Persistence.DatabaseSeed
                     Id = 1,
                     Name = "Lygu, daugiau arba mažiau",
                     Description = "Įvairaus sudėtingumo lygybių uždaviniai be kintamųjų",
+                    ExamDescription = "Lengvas testas sudarytas iš mažų temos uždavinių",
                     Topic = "Math",
                     DifficultyLevel = 1,
                     Link = "Equality",
@@ -29,6 +30,7 @@ namespace EKlubas.Persistence.DatabaseSeed
                     Id = 2,
                     Name = "Lygu, daugiau arba mažiau",
                     Description = "Įvairaus sudėtingumo lygybių uždaviniai be kintamųjų",
+                    ExamDescription = "Lengvas testas sudarytas iš mažų temos uždavinių",
                     Topic = "Math",
                     DifficultyLevel = 2,
                     Link = "Equality",
@@ -40,6 +42,7 @@ namespace EKlubas.Persistence.DatabaseSeed
                     Id = 3,
                     Name = "Lygu, daugiau arba mažiau",
                     Description = "Įvairaus sudėtingumo lygybių uždaviniai be kintamųjų",
+                    ExamDescription = "Lengvas testas sudarytas iš mažų temos uždavinių",
                     Topic = "Math",
                     DifficultyLevel = 3,
                     Link = "Equality",
@@ -50,6 +53,7 @@ namespace EKlubas.Persistence.DatabaseSeed
                     Id = 4,
                     Name = "Lygtys su vienu kintamuoju",
                     Description = "Įvairaus sudėtingumo lygčių uždaviniai su vienu kintamuoju x",
+                    ExamDescription = "Lengvas testas sudarytas iš mažų temos uždavinių",
                     Topic = "Math",
                     DifficultyLevel = 1,
                     Link = "Equation",
@@ -61,6 +65,7 @@ namespace EKlubas.Persistence.DatabaseSeed
                     Id = 5,
                     Name = "Lygtys su vienu kintamuoju",
                     Description = "Įvairaus sudėtingumo lygčių uždaviniai su vienu kintamuoju x",
+                    ExamDescription = "Lengvas testas sudarytas iš mažų temos uždavinių",
                     Topic = "Math",
                     DifficultyLevel = 2,
                     Link = "Equation",
@@ -72,6 +77,7 @@ namespace EKlubas.Persistence.DatabaseSeed
                     Id = 6,
                     Name = "Lygtys su vienu kintamuoju",
                     Description = "Įvairaus sudėtingumo lygčių uždaviniai su vienu kintamuoju x",
+                    ExamDescription = "Lengvas testas sudarytas iš mažų temos uždavinių",
                     Topic = "Math",
                     DifficultyLevel = 3,
                     Link = "Equation",
@@ -82,6 +88,7 @@ namespace EKlubas.Persistence.DatabaseSeed
                     Id = 7,
                     Name = "Lygybės su vienu kintamuoju",
                     Description = "Įvairaus sudėtingumo lygybių uždaviniai su vienu kintamuoju x",
+                    ExamDescription = "Lengvas testas sudarytas iš mažų temos uždavinių",
                     Topic = "Math",
                     DifficultyLevel = 1,
                     Link = "EqualityWithVariable",
@@ -93,6 +100,7 @@ namespace EKlubas.Persistence.DatabaseSeed
                     Id = 8,
                     Name = "Lygybės su vienu kintamuoju",
                     Description = "Įvairaus sudėtingumo lygybių uždaviniai su vienu kintamuoju x",
+                    ExamDescription = "Lengvas testas sudarytas iš mažų temos uždavinių",
                     Topic = "Math",
                     DifficultyLevel = 2,
                     Link = "EqualityWithVariable",
@@ -104,6 +112,7 @@ namespace EKlubas.Persistence.DatabaseSeed
                     Id = 9,
                     Name = "Lygybės su vienu kintamuoju",
                     Description = "Įvairaus sudėtingumo lygybių uždaviniai su vienu kintamuoju x",
+                    ExamDescription = "Lengvas testas sudarytas iš mažų temos uždavinių",
                     Topic = "Math",
                     DifficultyLevel = 3,
                     Link = "EqualityWithVariable",

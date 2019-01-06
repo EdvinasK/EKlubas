@@ -1,4 +1,4 @@
-﻿
+﻿@model IEnumerable<StudyTopic>
 @{
     ViewData["Title"] = "Matematikos testai";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -10,12 +10,18 @@
 
 
 <div class="row">
-
-    <div class="col-md-4">
-        <div class="list-group">
-            <a href="#" class="list-group-item list-group-item-info text-center">Lygu, daugiau arba mažiau</a>
-            <a href="#" class="list-group-item list-group-item-info text-center">Lygybės su vienu kintamuoju</a>
-            <a href="#" class="list-group-item list-group-item-info text-center">Lygtys su vienu kintamuoju</a>
+    @foreach (var st in Model)
+    {
+        <div class="col-sm-4 col-md-3">
+            <div class="thumbnail">
+                <img src="~/images/EquationHouse.png" alt="Equation house">
+                <div class="caption">
+                    <h3>@st.Name</h3>
+                    <p>@st.ExamDescription</p>@st.Topic
+                    <p class="text-right"></p>
+                    <a asp-action="@st.GetLink(true)" asp-controller="@st.GetControllerLink(true)" asp-route-difficultyLevel="@st.DifficultyLevel" class="btn btn-warning btn-block btn-lg" role="button">Spręsti</a>
+                </div>
+            </div>
         </div>
-    </div>
+    }
 </div>

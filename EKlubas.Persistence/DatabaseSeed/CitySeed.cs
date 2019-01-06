@@ -1,4 +1,4 @@
-﻿using EKlubas.Domain.CityNS;
+﻿using EKlubas.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;

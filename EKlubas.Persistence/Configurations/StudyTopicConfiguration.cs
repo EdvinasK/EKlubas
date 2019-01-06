@@ -1,4 +1,4 @@
-﻿using EKlubas.Domain.StudyTopic;
+﻿using EKlubas.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
@@ -19,6 +19,9 @@ namespace EKlubas.Persistence.Configurations
                 .ValueGeneratedOnAdd();
 
             entity.HasIndex(e => e.Topic);
+
+            entity.Property(e => e.StudyId)
+                .HasDefaultValueSql("1");
         }
     }
 }

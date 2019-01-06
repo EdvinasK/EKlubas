@@ -2,10 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using EKlubas.Contracts.Abstractions;
-using EKlubas.Domain.CityNS;
-using EKlubas.Domain.StudyExamAnswer;
-using EKlubas.Domain.StudyTopic;
-using EKlubas.Domain.Users;
+using EKlubas.Domain;
 using EKlubas.Persistence.Configurations;
 using EKlubas.Persistence.DatabaseSeed;
 using EKlubas.Persistence.Extensions;
@@ -26,6 +23,7 @@ namespace EKlubas.Persistence
         public DbSet<City> Cities { get; set; }
         public DbSet<StudyTopic> StudyTopics { get; set; }
         public DbSet<StudyExamAnswer> StudyExamAnswers { get; set; }
+        public DbSet<Study> Studies { get; set; }
 
         //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         //{
@@ -41,9 +39,11 @@ namespace EKlubas.Persistence
             modelBuilder.ApplyConfiguration(new EKlubasUserConfiguration());
             modelBuilder.ApplyConfiguration(new StudyTopicConfiguration());
             modelBuilder.ApplyConfiguration(new StudyExamAnswerConfiguration());
+            modelBuilder.ApplyConfiguration(new StudyConfiguration());
 
             modelBuilder.Entity<City>().HasData(CitySeed.GetCityListSeed());
             modelBuilder.Entity<StudyTopic>().HasData(StudyTopicSeed.GetStudyTopicListSeed());
+            modelBuilder.Entity<Study>().HasData(StudySeed.GetStudyListSeed());
         }
     }
 }

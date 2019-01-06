@@ -12,7 +12,6 @@ using EKlubas.UI.Controllers.Math;
 using EKlubas.Persistence;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using EKlubas.Domain.StudyTopic;
 
 namespace EKlubas.UI.Controllers
 {

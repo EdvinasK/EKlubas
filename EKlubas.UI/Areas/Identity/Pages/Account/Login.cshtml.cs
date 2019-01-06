@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using EKlubas.Persistence;
-using EKlubas.Domain.Users;
+using EKlubas.Domain;
 
 namespace EKlubas.UI.Areas.Identity.Pages.Account
 {
