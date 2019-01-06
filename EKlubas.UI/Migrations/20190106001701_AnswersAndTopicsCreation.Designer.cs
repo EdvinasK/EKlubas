@@ -4,14 +4,16 @@ using EKlubas.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EKlubas.UI.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190106001701_AnswersAndTopicsCreation")]
+    partial class AnswersAndTopicsCreation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -146,98 +148,6 @@ namespace EKlubas.UI.Migrations
                     b.HasIndex("Topic");
 
                     b.ToTable("StudyTopics");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Description = "Įvairaus sudėtingumo lygybių uždaviniai be kintamųjų",
-                            DifficultyLevel = 1,
-                            DurationInMinutes = 5,
-                            Link = "Equality",
-                            Name = "Lygu, daugiau arba mažiau",
-                            Topic = "Math"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Description = "Įvairaus sudėtingumo lygybių uždaviniai be kintamųjų",
-                            DifficultyLevel = 2,
-                            DurationInMinutes = 10,
-                            Link = "Equality",
-                            Name = "Lygu, daugiau arba mažiau",
-                            Topic = "Math"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Description = "Įvairaus sudėtingumo lygybių uždaviniai be kintamųjų",
-                            DifficultyLevel = 3,
-                            DurationInMinutes = 15,
-                            Link = "Equality",
-                            Name = "Lygu, daugiau arba mažiau",
-                            Topic = "Math"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Description = "Įvairaus sudėtingumo lygčių uždaviniai su vienu kintamuoju x",
-                            DifficultyLevel = 1,
-                            DurationInMinutes = 5,
-                            Link = "Equation",
-                            Name = "Lygtys su vienu kintamuoju",
-                            Topic = "Math"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Description = "Įvairaus sudėtingumo lygčių uždaviniai su vienu kintamuoju x",
-                            DifficultyLevel = 2,
-                            DurationInMinutes = 10,
-                            Link = "Equation",
-                            Name = "Lygtys su vienu kintamuoju",
-                            Topic = "Math"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            Description = "Įvairaus sudėtingumo lygčių uždaviniai su vienu kintamuoju x",
-                            DifficultyLevel = 3,
-                            DurationInMinutes = 15,
-                            Link = "Equation",
-                            Name = "Lygtys su vienu kintamuoju",
-                            Topic = "Math"
-                        },
-                        new
-                        {
-                            Id = 7,
-                            Description = "Įvairaus sudėtingumo lygybių uždaviniai su vienu kintamuoju x",
-                            DifficultyLevel = 1,
-                            DurationInMinutes = 5,
-                            Link = "EqualityWithVariable",
-                            Name = "Lygybės su vienu kintamuoju",
-                            Topic = "Math"
-                        },
-                        new
-                        {
-                            Id = 8,
-                            Description = "Įvairaus sudėtingumo lygybių uždaviniai su vienu kintamuoju x",
-                            DifficultyLevel = 2,
-                            DurationInMinutes = 10,
-                            Link = "EqualityWithVariable",
-                            Name = "Lygybės su vienu kintamuoju",
-                            Topic = "Math"
-                        },
-                        new
-                        {
-                            Id = 9,
-                            Description = "Įvairaus sudėtingumo lygybių uždaviniai su vienu kintamuoju x",
-                            DifficultyLevel = 3,
-                            DurationInMinutes = 15,
-                            Link = "EqualityWithVariable",
-                            Name = "Lygybės su vienu kintamuoju",
-                            Topic = "Math"
-                        });
                 });
 
             modelBuilder.Entity("EKlubas.Domain.Users.EKlubasUser", b =>

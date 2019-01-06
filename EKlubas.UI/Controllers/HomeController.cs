@@ -11,11 +11,20 @@ using EKlubas.Domain.DTO;
 using EKlubas.UI.Controllers.Math;
 using EKlubas.Persistence;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+using EKlubas.Domain.StudyTopic;
 
 namespace EKlubas.UI.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly ApplicationDbContext _context;
+
+        public HomeController(ApplicationDbContext context)
+        {
+            _context = context;
+        }
+
         public IActionResult Index()
         {
             return View();
@@ -35,98 +44,9 @@ namespace EKlubas.UI.Controllers
             return View();
         }
 
-        public IActionResult MathTasks()
+        public async Task<IActionResult> MathTasks()
         {
-            var taskTopics = new List<MathTopic>
-            {
-                new MathTopic()
-                {
-                    Name = "Lygu, daugiau arba mažiau",
-                    Description = "Įvairaus sudėtingumo lygybių uždaviniai be kintamųjų",
-                    Topic = nameof(MathController).Replace("Controller", ""),
-                    DifficultyLevel = 1,
-                    Link = nameof(MathController.Equality),
-                    DurationInMinutes = 5
-                },
-
-                new MathTopic()
-                {
-                    Name = "Lygu, daugiau arba mažiau",
-                    Description = "Įvairaus sudėtingumo lygybių uždaviniai be kintamųjų",
-                    Topic = nameof(MathController).Replace("Controller", ""),
-                    DifficultyLevel = 2,
-                    Link = nameof(MathController.Equality),
-                    DurationInMinutes = 10
-                },
-
-                new MathTopic()
-                {
-                    Name = "Lygu, daugiau arba mažiau",
-                    Description = "Įvairaus sudėtingumo lygybių uždaviniai be kintamųjų",
-                    Topic = nameof(MathController).Replace("Controller", ""),
-                    DifficultyLevel = 3,
-                    Link = nameof(MathController.Equality),
-                    DurationInMinutes = 15
-                },
-                new MathTopic()
-                {
-                    Name = "Lygtys su vienu kintamuoju",
-                    Description = "Įvairaus sudėtingumo lygčių uždaviniai su vienu kintamuoju x",
-                    Topic = nameof(MathController).Replace("Controller", ""),
-                    DifficultyLevel = 1,
-                    Link = nameof(MathController.Equation),
-                    DurationInMinutes = 5
-                },
-
-                new MathTopic()
-                {
-                    Name = "Lygtys su vienu kintamuoju",
-                    Description = "Įvairaus sudėtingumo lygčių uždaviniai su vienu kintamuoju x",
-                    Topic = nameof(MathController).Replace("Controller", ""),
-                    DifficultyLevel = 2,
-                    Link = nameof(MathController.Equation),
-                    DurationInMinutes = 10
-                },
-
-                new MathTopic()
-                {
-                    Name = "Lygtys su vienu kintamuoju",
-                    Description = "Įvairaus sudėtingumo lygčių uždaviniai su vienu kintamuoju x",
-                    Topic = nameof(MathController).Replace("Controller", ""),
-                    DifficultyLevel = 3,
-                    Link = nameof(MathController.Equation),
-                    DurationInMinutes = 15
-                },
-                new MathTopic()
-                {
-                    Name = "Lygybės su vienu kintamuoju",
-                    Description = "Įvairaus sudėtingumo lygybių uždaviniai su vienu kintamuoju x",
-                    Topic = nameof(MathController).Replace("Controller", ""),
-                    DifficultyLevel = 1,
-                    Link = nameof(MathController.EqualityWithVariable),
-                    DurationInMinutes = 5
-                },
-
-                new MathTopic()
-                {
-                    Name = "Lygybės su vienu kintamuoju",
-                    Description = "Įvairaus sudėtingumo lygybių uždaviniai su vienu kintamuoju x",
-                    Topic = nameof(MathController).Replace("Controller", ""),
-                    DifficultyLevel = 2,
-                    Link = nameof(MathController.EqualityWithVariable),
-                    DurationInMinutes = 10
-                },
-
-                new MathTopic()
-                {
-                    Name = "Lygybės su vienu kintamuoju",
-                    Description = "Įvairaus sudėtingumo lygybių uždaviniai su vienu kintamuoju x",
-                    Topic = nameof(MathController).Replace("Controller", ""),
-                    DifficultyLevel = 3,
-                    Link = nameof(MathController.EqualityWithVariable),
-                    DurationInMinutes = 15
-                }
-            };
+            IEnumerable<StudyTopic> taskTopics = await _context.StudyTopics.ToListAsync();
 
             ViewBag.TopicTheme = "Temos";
 

@@ -17,5 +17,6 @@ namespace EKlubas.Domain.Users
         public City City { get; set; }
         public DateTime CreatedTime { get; set; }
         public DateTime LastLogin { get; set; }
+        public ICollection<StudyExamAnswer.StudyExamAnswer> StudyExamAnswers { get; set; }
     }
 }
