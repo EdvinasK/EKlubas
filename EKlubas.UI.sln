@@ -19,6 +19,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EKlubas.Contracts", "EKluba
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EKlubas.UI.Services", "EKlubas.UI.Services\EKlubas.UI.Services.csproj", "{6AF44611-C608-4D6E-8F36-B403158AC1A0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EKlubas.Application", "EKlubas.Application\EKlubas.Application.csproj", "{A5B755F7-694D-4FA0-93C3-1F3B2655C3A1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,6 +55,10 @@ Global
 		{6AF44611-C608-4D6E-8F36-B403158AC1A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6AF44611-C608-4D6E-8F36-B403158AC1A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6AF44611-C608-4D6E-8F36-B403158AC1A0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A5B755F7-694D-4FA0-93C3-1F3B2655C3A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5B755F7-694D-4FA0-93C3-1F3B2655C3A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5B755F7-694D-4FA0-93C3-1F3B2655C3A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5B755F7-694D-4FA0-93C3-1F3B2655C3A1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using EKlubas.Domain.CityNS;
 using Microsoft.AspNetCore.Identity;
 
-namespace EKlubas.Domain.Users
+namespace EKlubas.Domain
 {
     public class EKlubasUser : IdentityUser<string>
     {
@@ -17,6 +16,6 @@ namespace EKlubas.Domain.Users
         public City City { get; set; }
         public DateTime CreatedTime { get; set; }
         public DateTime LastLogin { get; set; }
-        public ICollection<StudyExamAnswer.StudyExamAnswer> StudyExamAnswers { get; set; }
+        public ICollection<StudyExamAnswer> StudyExamAnswers { get; set; }
     }
 }

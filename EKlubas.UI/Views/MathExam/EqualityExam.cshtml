@@ -1,0 +1,27 @@
+﻿@model List<EqualityExamDto>
+@{
+    ViewData["Title"] = "Lygybių testas";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="task-header">
+    <h2>Matematikos testai</h2>
+    <h3>@ViewBag.TopicTheme</h3>
+    <h4>Ar lygybė teisinga?</h4>
+    <h4>Teisingas lygybes pažymėkite varnele.</h4>
+</div>
+<div>
+    <form>
+        <ol class="task-list">
+            @foreach (var task in Model)
+            {
+                <li>
+                    <input class="form-check-input" type="checkbox" value="" id="@task.AnswerId">
+                    <span class="task-list-item">@task.TaskDescription</span>
+                </li>
+            }
+            <li></li>
+        </ol>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>

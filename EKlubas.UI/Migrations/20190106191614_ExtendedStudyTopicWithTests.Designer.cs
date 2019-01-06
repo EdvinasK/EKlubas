@@ -4,14 +4,16 @@ using EKlubas.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EKlubas.UI.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190106191614_ExtendedStudyTopicWithTests")]
+    partial class ExtendedStudyTopicWithTests
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -170,33 +172,6 @@ namespace EKlubas.UI.Migrations
                     b.ToTable("IdentityRoles");
                 });
 
-            modelBuilder.Entity("EKlubas.Domain.Study", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Name");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Name");
-
-                    b.ToTable("Studies");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "-Nepriskirta-"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "Matematika"
-                        });
-                });
-
             modelBuilder.Entity("EKlubas.Domain.StudyExamAnswer", b =>
                 {
                     b.Property<Guid>("Id")
@@ -235,23 +210,15 @@ namespace EKlubas.UI.Migrations
 
                     b.Property<int>("DurationInMinutes");
 
-                    b.Property<string>("ExamDescription");
-
                     b.Property<bool>("IsTestPrepared");
 
                     b.Property<string>("Link");
 
                     b.Property<string>("Name");
 
-                    b.Property<int>("StudyId")
-                        .ValueGeneratedOnAdd()
-                        .HasDefaultValueSql("1");
-
                     b.Property<string>("Topic");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("StudyId");
 
                     b.HasIndex("Topic");
 
@@ -264,11 +231,9 @@ namespace EKlubas.UI.Migrations
                             Description = "Įvairaus sudėtingumo lygybių uždaviniai be kintamųjų",
                             DifficultyLevel = 1,
                             DurationInMinutes = 5,
-                            ExamDescription = "Lengvas testas sudarytas iš mažų temos uždavinių",
                             IsTestPrepared = false,
                             Link = "Equality",
                             Name = "Lygu, daugiau arba mažiau",
-                            StudyId = 0,
                             Topic = "Math"
                         },
                         new
@@ -277,11 +242,9 @@ namespace EKlubas.UI.Migrations
                             Description = "Įvairaus sudėtingumo lygybių uždaviniai be kintamųjų",
                             DifficultyLevel = 2,
                             DurationInMinutes = 10,
-                            ExamDescription = "Lengvas testas sudarytas iš mažų temos uždavinių",
                             IsTestPrepared = false,
                             Link = "Equality",
                             Name = "Lygu, daugiau arba mažiau",
-                            StudyId = 0,
                             Topic = "Math"
                         },
                         new
@@ -290,11 +253,9 @@ namespace EKlubas.UI.Migrations
                             Description = "Įvairaus sudėtingumo lygybių uždaviniai be kintamųjų",
                             DifficultyLevel = 3,
                             DurationInMinutes = 15,
-                            ExamDescription = "Lengvas testas sudarytas iš mažų temos uždavinių",
                             IsTestPrepared = false,
                             Link = "Equality",
                             Name = "Lygu, daugiau arba mažiau",
-                            StudyId = 0,
                             Topic = "Math"
                         },
                         new
@@ -303,11 +264,9 @@ namespace EKlubas.UI.Migrations
                             Description = "Įvairaus sudėtingumo lygčių uždaviniai su vienu kintamuoju x",
                             DifficultyLevel = 1,
                             DurationInMinutes = 5,
-                            ExamDescription = "Lengvas testas sudarytas iš mažų temos uždavinių",
                             IsTestPrepared = false,
                             Link = "Equation",
                             Name = "Lygtys su vienu kintamuoju",
-                            StudyId = 0,
                             Topic = "Math"
                         },
                         new
@@ -316,11 +275,9 @@ namespace EKlubas.UI.Migrations
                             Description = "Įvairaus sudėtingumo lygčių uždaviniai su vienu kintamuoju x",
                             DifficultyLevel = 2,
                             DurationInMinutes = 10,
-                            ExamDescription = "Lengvas testas sudarytas iš mažų temos uždavinių",
                             IsTestPrepared = false,
                             Link = "Equation",
                             Name = "Lygtys su vienu kintamuoju",
-                            StudyId = 0,
                             Topic = "Math"
                         },
                         new
@@ -329,11 +286,9 @@ namespace EKlubas.UI.Migrations
                             Description = "Įvairaus sudėtingumo lygčių uždaviniai su vienu kintamuoju x",
                             DifficultyLevel = 3,
                             DurationInMinutes = 15,
-                            ExamDescription = "Lengvas testas sudarytas iš mažų temos uždavinių",
                             IsTestPrepared = false,
                             Link = "Equation",
                             Name = "Lygtys su vienu kintamuoju",
-                            StudyId = 0,
                             Topic = "Math"
                         },
                         new
@@ -342,11 +297,9 @@ namespace EKlubas.UI.Migrations
                             Description = "Įvairaus sudėtingumo lygybių uždaviniai su vienu kintamuoju x",
                             DifficultyLevel = 1,
                             DurationInMinutes = 5,
-                            ExamDescription = "Lengvas testas sudarytas iš mažų temos uždavinių",
                             IsTestPrepared = false,
                             Link = "EqualityWithVariable",
                             Name = "Lygybės su vienu kintamuoju",
-                            StudyId = 0,
                             Topic = "Math"
                         },
                         new
@@ -355,11 +308,9 @@ namespace EKlubas.UI.Migrations
                             Description = "Įvairaus sudėtingumo lygybių uždaviniai su vienu kintamuoju x",
                             DifficultyLevel = 2,
                             DurationInMinutes = 10,
-                            ExamDescription = "Lengvas testas sudarytas iš mažų temos uždavinių",
                             IsTestPrepared = false,
                             Link = "EqualityWithVariable",
                             Name = "Lygybės su vienu kintamuoju",
-                            StudyId = 0,
                             Topic = "Math"
                         },
                         new
@@ -368,11 +319,9 @@ namespace EKlubas.UI.Migrations
                             Description = "Įvairaus sudėtingumo lygybių uždaviniai su vienu kintamuoju x",
                             DifficultyLevel = 3,
                             DurationInMinutes = 15,
-                            ExamDescription = "Lengvas testas sudarytas iš mažų temos uždavinių",
                             IsTestPrepared = false,
                             Link = "EqualityWithVariable",
                             Name = "Lygybės su vienu kintamuoju",
-                            StudyId = 0,
                             Topic = "Math"
                         });
                 });
@@ -476,14 +425,6 @@ namespace EKlubas.UI.Migrations
                     b.HasOne("EKlubas.Domain.EKlubasUser", "User")
                         .WithMany("StudyExamAnswers")
                         .HasForeignKey("UserId");
-                });
-
-            modelBuilder.Entity("EKlubas.Domain.StudyTopic", b =>
-                {
-                    b.HasOne("EKlubas.Domain.Study", "Study")
-                        .WithMany("StudyTopics")
-                        .HasForeignKey("StudyId")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

@@ -4,16 +4,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EKlubas.Domain.StudyTopic
+namespace EKlubas.Domain
 {
     public class StudyTopic : Entity<int>
     {
         public string Name { get; set; }
         public string Description { get; set; }
+        public string ExamDescription { get; set; }
         public string Link { get; set; }
         public string Topic { get; set; }
         public int DifficultyLevel { get; set; }
         public int DurationInMinutes { get; set; }
+        public bool IsTestPrepared { get; set; } = false;
+        public int StudyId { get; set; }
+        public Study Study { get; set; }
 
         public string DifficultyText
         {
@@ -28,6 +32,30 @@ namespace EKlubas.Domain.StudyTopic
             {
                 return GetDifficultyCssClass();
             }
+        }
+
+        public string GetLink(bool isExam = false)
+        {
+            var linkBuilder = new StringBuilder();
+
+            linkBuilder.Append(Link);
+
+            if (!isExam)
+                return linkBuilder.ToString();
+            else
+                return linkBuilder.Append("Exam").ToString();
+        }
+
+        public string GetControllerLink(bool isExam = false)
+        {
+            var linkBuilder = new StringBuilder();
+
+            linkBuilder.Append(Topic);
+
+            if (!isExam)
+                return linkBuilder.ToString();
+            else
+                return linkBuilder.Append("Exam").ToString();
         }
 
         public string GetDifficultyInText()

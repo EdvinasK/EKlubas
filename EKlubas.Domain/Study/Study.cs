@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace EKlubas.Domain
 {
-    public class City : Entity<int>
+    public class Study : Entity<int>
     {
         public string Name { get; set; }
-        public ICollection<EKlubasUser> Users { get; set; }
+        public ICollection<StudyTopic> StudyTopics { get; set; }
     }
 }

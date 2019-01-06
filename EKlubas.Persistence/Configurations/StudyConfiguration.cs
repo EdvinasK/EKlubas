@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace EKlubas.Persistence.Configurations
 {
-    public class CityConfiguration : IEntityTypeConfiguration<City>
+    public class StudyConfiguration : IEntityTypeConfiguration<Study>
     {
-        public void Configure(EntityTypeBuilder<City> entity)
+        public void Configure(EntityTypeBuilder<Study> entity)
         {
             entity.HasKey(e => new { e.Id });
 
@@ -20,9 +20,9 @@ namespace EKlubas.Persistence.Configurations
 
             entity.HasIndex(e => e.Name);
 
-            entity.HasMany(c => c.Users)
-                .WithOne(u => u.City)
-                .HasForeignKey(u => u.CityId);
+            entity.HasMany(c => c.StudyTopics)
+                .WithOne(u => u.Study)
+                .HasForeignKey(u => u.StudyId);
         }
     }
 }

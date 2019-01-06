@@ -12,12 +12,12 @@ using Microsoft.EntityFrameworkCore;
 using EKlubas.Persistence;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using EKlubas.Domain.Users;
 using Newtonsoft.Json.Serialization;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using EKlubas.Common.Services.Communication;
 using EKlubas.Contracts.Abstractions;
+using EKlubas.Domain;
 
 namespace EKlubas.UI
 {

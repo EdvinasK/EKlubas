@@ -4,14 +4,16 @@ using EKlubas.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EKlubas.UI.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190106195520_CreatedStudyClassificator")]
+    partial class CreatedStudyClassificator
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -235,8 +237,6 @@ namespace EKlubas.UI.Migrations
 
                     b.Property<int>("DurationInMinutes");
 
-                    b.Property<string>("ExamDescription");
-
                     b.Property<bool>("IsTestPrepared");
 
                     b.Property<string>("Link");
@@ -264,7 +264,6 @@ namespace EKlubas.UI.Migrations
                             Description = "Įvairaus sudėtingumo lygybių uždaviniai be kintamųjų",
                             DifficultyLevel = 1,
                             DurationInMinutes = 5,
-                            ExamDescription = "Lengvas testas sudarytas iš mažų temos uždavinių",
                             IsTestPrepared = false,
                             Link = "Equality",
                             Name = "Lygu, daugiau arba mažiau",
@@ -277,7 +276,6 @@ namespace EKlubas.UI.Migrations
                             Description = "Įvairaus sudėtingumo lygybių uždaviniai be kintamųjų",
                             DifficultyLevel = 2,
                             DurationInMinutes = 10,
-                            ExamDescription = "Lengvas testas sudarytas iš mažų temos uždavinių",
                             IsTestPrepared = false,
                             Link = "Equality",
                             Name = "Lygu, daugiau arba mažiau",
@@ -290,7 +288,6 @@ namespace EKlubas.UI.Migrations
                             Description = "Įvairaus sudėtingumo lygybių uždaviniai be kintamųjų",
                             DifficultyLevel = 3,
                             DurationInMinutes = 15,
-                            ExamDescription = "Lengvas testas sudarytas iš mažų temos uždavinių",
                             IsTestPrepared = false,
                             Link = "Equality",
                             Name = "Lygu, daugiau arba mažiau",
@@ -303,7 +300,6 @@ namespace EKlubas.UI.Migrations
                             Description = "Įvairaus sudėtingumo lygčių uždaviniai su vienu kintamuoju x",
                             DifficultyLevel = 1,
                             DurationInMinutes = 5,
-                            ExamDescription = "Lengvas testas sudarytas iš mažų temos uždavinių",
                             IsTestPrepared = false,
                             Link = "Equation",
                             Name = "Lygtys su vienu kintamuoju",
@@ -316,7 +312,6 @@ namespace EKlubas.UI.Migrations
                             Description = "Įvairaus sudėtingumo lygčių uždaviniai su vienu kintamuoju x",
                             DifficultyLevel = 2,
                             DurationInMinutes = 10,
-                            ExamDescription = "Lengvas testas sudarytas iš mažų temos uždavinių",
                             IsTestPrepared = false,
                             Link = "Equation",
                             Name = "Lygtys su vienu kintamuoju",
@@ -329,7 +324,6 @@ namespace EKlubas.UI.Migrations
                             Description = "Įvairaus sudėtingumo lygčių uždaviniai su vienu kintamuoju x",
                             DifficultyLevel = 3,
                             DurationInMinutes = 15,
-                            ExamDescription = "Lengvas testas sudarytas iš mažų temos uždavinių",
                             IsTestPrepared = false,
                             Link = "Equation",
                             Name = "Lygtys su vienu kintamuoju",
@@ -342,7 +336,6 @@ namespace EKlubas.UI.Migrations
                             Description = "Įvairaus sudėtingumo lygybių uždaviniai su vienu kintamuoju x",
                             DifficultyLevel = 1,
                             DurationInMinutes = 5,
-                            ExamDescription = "Lengvas testas sudarytas iš mažų temos uždavinių",
                             IsTestPrepared = false,
                             Link = "EqualityWithVariable",
                             Name = "Lygybės su vienu kintamuoju",
@@ -355,7 +348,6 @@ namespace EKlubas.UI.Migrations
                             Description = "Įvairaus sudėtingumo lygybių uždaviniai su vienu kintamuoju x",
                             DifficultyLevel = 2,
                             DurationInMinutes = 10,
-                            ExamDescription = "Lengvas testas sudarytas iš mažų temos uždavinių",
                             IsTestPrepared = false,
                             Link = "EqualityWithVariable",
                             Name = "Lygybės su vienu kintamuoju",
@@ -368,7 +360,6 @@ namespace EKlubas.UI.Migrations
                             Description = "Įvairaus sudėtingumo lygybių uždaviniai su vienu kintamuoju x",
                             DifficultyLevel = 3,
                             DurationInMinutes = 15,
-                            ExamDescription = "Lengvas testas sudarytas iš mažų temos uždavinių",
                             IsTestPrepared = false,
                             Link = "EqualityWithVariable",
                             Name = "Lygybės su vienu kintamuoju",

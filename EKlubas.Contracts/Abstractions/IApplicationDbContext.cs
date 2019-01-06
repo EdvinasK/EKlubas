@@ -1,4 +1,4 @@
-﻿using EKlubas.Domain.CityNS;
+﻿using EKlubas.Domain;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -11,5 +11,8 @@ namespace EKlubas.Contracts.Abstractions
     public interface IApplicationDbContext
     {
         DbSet<City> Cities { get; set; }
+        DbSet<StudyTopic> StudyTopics { get; set; }
+        DbSet<StudyExamAnswer> StudyExamAnswers { get; set; }
+        DbSet<Study> Studies { get; set; }
     }
 }

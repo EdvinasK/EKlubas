@@ -1,4 +1,4 @@
-﻿using EKlubas.Domain.StudyExamAnswer;
+﻿using EKlubas.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;

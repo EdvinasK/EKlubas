@@ -10,7 +10,7 @@
     @foreach(var topic in Model)
     {
         <div class="col-sm-4">
-            <a asp-action="@topic.Link" asp-controller="@topic.Topic" asp-route-difficultyLevel="@topic.DifficultyLevel">
+            <a asp-action="@topic.GetLink()" asp-controller="@topic.GetControllerLink()" asp-route-difficultyLevel="@topic.DifficultyLevel">
                 <div class="panel @topic.DifficultyCssStyle">
                     <div class="panel-heading">
                         <h3>@topic.Name</h3>
