@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using EKlubas.Application;
+using EKlubas.Application.Common;
 using EKlubas.Domain;
 using EKlubas.Persistence;
 using EKlubas.UI.Services.Math.Equality;
@@ -42,8 +43,15 @@ namespace EKlubas.UI.Controllers.Math
         {
             var user = await _manager.GetUserAsync(HttpContext.User);
             var mathTask = new Equation();
-            var equalityTasks = new List<EqualityExamDto>();
-            var answerId = Guid.Empty;
+            var equalityTasks = new EqualityExamDto();
+            // var answerId = Guid.Empty;
+            var studyExam = new StudyExam()
+            {
+                Id = Guid.NewGuid(),
+                CreatedTime = DateTime.Now,
+                EndDate = DateTime.Now.AddMinutes(60),
+                User = user,
+            };
 
             if (difficultyLevel < 1 || difficultyLevel > 3)
                 return RedirectToAction("MathExamCatalog", nameof(MathExamController).Replace("Controller", ""));
@@ -52,30 +60,45 @@ namespace EKlubas.UI.Controllers.Math
 
             foreach(var task in equalityTasksAndResults)
             {
-                answerId = Guid.NewGuid();
+                var answerId = Guid.NewGuid();
 
                 var userAnswer = new StudyExamAnswer()
                 {
                     Id = answerId,
-                    CreatedTime = DateTime.Now,
-                    EndDate = DateTime.Now.AddMinutes(60),
-                    User = user,
                     Answer = task.Result
                 };
 
-                equalityTasks.Add(new EqualityExamDto()
-                {
-                    AnswerId = answerId,
-                    TaskDescription = task.Message
-                });
-
-                await _context.StudyExamAnswers.AddAsync(userAnswer);
-                
+                equalityTasks.Tasks.Add(userAnswer.Id, task.Message);
+                studyExam.StudyExamResults.Add(userAnswer);
             }
 
+            equalityTasks.StudyExam = studyExam;
+
+            await _context.StudyExams.AddAsync(studyExam);
             await _context.SaveChangesAsync();
 
             return View(equalityTasks);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> EqualityExam(FinishedExamDto<Guid> finishedExam)
+        {
+            var user = await _manager.GetUserAsync(HttpContext.User);
+
+            var exam = await _context.StudyExams
+                            .Where(se => se.Id == finishedExam.ExamId)
+                            .Include(se => se.StudyExamResults)
+                            .Where(se => se.StudyExamResults.Any(ser => ser.Answer == "Ats: Teisinga"))
+                            .SingleOrDefaultAsync();
+
+            var score = exam.StudyExamResults
+                            .Where(sea => finishedExam.ExamAnswers.Any(ea => sea.Id == ea))
+                            .Count();
+
+            score = score / exam.StudyExamResults.Count;
+            
+
+            return RedirectToAction("ExamResult", "Home", new { Score = score });
         }
 
         // GET: MathQuiz/Details/5

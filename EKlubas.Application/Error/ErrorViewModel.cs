@@ -1,6 +1,10 @@
-using System;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace EKlubas.UI.Models
+namespace EKlubas.Application
 {
     public class ErrorViewModel
     {

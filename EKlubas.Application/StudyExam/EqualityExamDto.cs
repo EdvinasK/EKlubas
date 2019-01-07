@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EKlubas.Domain;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,12 @@ namespace EKlubas.Application
 {
     public class EqualityExamDto
     {
-        public Guid AnswerId { get; set; }
-        public string TaskDescription { get; set; }
+        public EqualityExamDto()
+        {
+            Tasks = new Dictionary<Guid, string>();
+        }
+
+        public StudyExam StudyExam { get; set; }
+        public Dictionary<Guid, string> Tasks { get; set; }
     }
 }

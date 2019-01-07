@@ -1,0 +1,14 @@
+﻿
+@{
+    ViewData["Title"] = "Testo rezultatai";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="well">
+    <h2>Testo rezultatai</h2>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">@ViewBag.ResultMessage</div>
+    <div class="panel-body">@ViewBag.Score</div>
+</div>
