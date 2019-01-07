@@ -14,5 +14,6 @@ namespace EKlubas.Contracts.Abstractions
         DbSet<StudyTopic> StudyTopics { get; set; }
         DbSet<StudyExamAnswer> StudyExamAnswers { get; set; }
         DbSet<Study> Studies { get; set; }
+        DbSet<StudyExam> StudyExams { get; set; }
     }
 }

@@ -4,7 +4,6 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using EKlubas.UI.Models;
 using System.Text;
 using EKlubas.Domain;
 using EKlubas.Domain.DTO;
@@ -12,6 +11,7 @@ using EKlubas.UI.Controllers.Math;
 using EKlubas.Persistence;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using EKlubas.Application;
 
 namespace EKlubas.UI.Controllers
 {
@@ -50,6 +50,14 @@ namespace EKlubas.UI.Controllers
             ViewBag.TopicTheme = "Temos";
 
             return View(taskTopics);
+        }
+
+        public IActionResult ExamResult(int Score)
+        {
+            ViewBag.ResultMessage = Score >= 50 ? "Sveikiname!" : "Bandykite dar kartą..";
+            ViewBag.Score = Score;
+
+            return View();
         }
 
         public IActionResult Privacy()

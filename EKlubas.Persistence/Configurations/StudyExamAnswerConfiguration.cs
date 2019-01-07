@@ -18,19 +18,11 @@ namespace EKlubas.Persistence.Configurations
             entity.Property(e => e.Id)
                 .ValueGeneratedOnAdd();
 
-            entity.HasIndex(e => e.UserId);
+            entity.HasIndex(e => e.StudyExamId);
 
-            entity.HasOne(sea => sea.User)
-                .WithMany(u => u.StudyExamAnswers)
-                .HasForeignKey(u => u.UserId);
-
-            entity.Property(e => e.CreatedTime)
-                .HasColumnType("datetime")
-                .HasDefaultValueSql("'1900-01-01T00:00:00.000'");
-
-            entity.Property(e => e.EndDate)
-                .HasColumnType("datetime")
-                .HasDefaultValueSql("'1900-01-01T00:00:00.000'");
+            entity.HasOne(sea => sea.StudyExam)
+                .WithMany(se => se.StudyExamResults)
+                .HasForeignKey(sea => sea.StudyExamId);
         }
     }
 }

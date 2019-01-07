@@ -24,6 +24,7 @@ namespace EKlubas.Persistence
         public DbSet<StudyTopic> StudyTopics { get; set; }
         public DbSet<StudyExamAnswer> StudyExamAnswers { get; set; }
         public DbSet<Study> Studies { get; set; }
+        public DbSet<StudyExam> StudyExams { get; set; }
 
         //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         //{
@@ -40,6 +41,7 @@ namespace EKlubas.Persistence
             modelBuilder.ApplyConfiguration(new StudyTopicConfiguration());
             modelBuilder.ApplyConfiguration(new StudyExamAnswerConfiguration());
             modelBuilder.ApplyConfiguration(new StudyConfiguration());
+            modelBuilder.ApplyConfiguration(new StudyExamsConfiguration());
 
             modelBuilder.Entity<City>().HasData(CitySeed.GetCityListSeed());
             modelBuilder.Entity<StudyTopic>().HasData(StudyTopicSeed.GetStudyTopicListSeed());
