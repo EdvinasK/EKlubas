@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using EKlubas.Application;
 using EKlubas.Application.Common;
+using EKlubas.Common.Services;
 using EKlubas.Domain;
 using EKlubas.Persistence;
 using EKlubas.UI.Services.Math.Equality;
@@ -13,7 +14,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace EKlubas.UI.Controllers.Math
+namespace EKlubas.UI.Controllers
 {
     [Authorize]
     public class MathExamController : Controller
@@ -84,21 +85,62 @@ namespace EKlubas.UI.Controllers.Math
         public async Task<ActionResult> EqualityExam(FinishedExamDto<Guid> finishedExam)
         {
             var user = await _manager.GetUserAsync(HttpContext.User);
+            var rewardService = new RewardServices();
+            var reward = 0;
+            var userCorrectAnswers = 0;
+            var score = 0;
 
             var exam = await _context.StudyExams
                             .Where(se => se.Id == finishedExam.ExamId)
                             .Include(se => se.StudyExamResults)
-                            .Where(se => se.StudyExamResults.Any(ser => ser.Answer == "Ats: Teisinga"))
                             .SingleOrDefaultAsync();
 
-            var score = exam.StudyExamResults
-                            .Where(sea => finishedExam.ExamAnswers.Any(ea => sea.Id == ea))
-                            .Count();
+            var examCorrectAnswers = exam.StudyExamResults.Where(ser => ser.Answer == "Ats: Teisinga").ToList();
+            var examCorrectAnswersCount = examCorrectAnswers.Count();
+            var userTotalAnswersCount = finishedExam.ExamAnswers.Count;
+            var examTotalAnswersCount = exam.StudyExamResults.Count;
 
-            score = score / exam.StudyExamResults.Count;
-            
+            foreach (var correctAnswer in examCorrectAnswers)
+            {
+                foreach(var userAnswer in finishedExam.ExamAnswers)
+                {
+                    if(correctAnswer.Id == userAnswer)
+                    {
+                        userCorrectAnswers++;
+                        break;
+                    }
+                }
+            }
 
-            return RedirectToAction("ExamResult", "Home", new { Score = score });
+            var markCoefficient = CalculateMarkCoefficient(userCorrectAnswers,
+                                                        examCorrectAnswersCount,
+                                                        userTotalAnswersCount,
+                                                        examTotalAnswersCount);
+
+            score = Convert.ToInt32(Math.Round(markCoefficient));
+
+            reward = rewardService.CalculateCoinReward(score, exam.PassMark, exam.Reward);
+
+            if(reward != 0)
+            {
+                user.Coins += reward;
+                await _manager.UpdateAsync(user);
+            }
+
+            _context.StudyExams.Remove(exam);
+
+            return RedirectToAction("ExamResult", "Home", new { Score = score, Reward = reward });
+        }
+
+        private decimal CalculateMarkCoefficient(int userCorrectAnswersCount,
+                                                 int examCorrectAnswersCount,
+                                                 int userTotalAnswersCount,
+                                                 int examTotalAnswersCount)
+        {
+            decimal markCoef = (userCorrectAnswersCount / examCorrectAnswersCount)
+                            - (userTotalAnswersCount - userCorrectAnswersCount) / examTotalAnswersCount;
+
+            return markCoef;
         }
 
         // GET: MathQuiz/Details/5

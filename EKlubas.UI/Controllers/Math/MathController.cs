@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using EKlubas.UI.Services.Math.Equality;
 using Microsoft.AspNetCore.Mvc;
 
-namespace EKlubas.UI.Controllers.Math
+namespace EKlubas.UI.Controllers
 {
     public class MathController : Controller
     {

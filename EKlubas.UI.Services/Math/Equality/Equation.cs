@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using EKlubas.Common.Services.Math;
+using EKlubas.Common.Services;
 using EKlubas.Contracts.Services.Math.Equality;
 using EKlubas.Domain;
 using EKlubas.Domain.DTO;
