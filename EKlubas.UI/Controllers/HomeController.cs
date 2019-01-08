@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Mvc;
 using System.Text;
 using EKlubas.Domain;
 using EKlubas.Domain.DTO;
-using EKlubas.UI.Controllers.Math;
 using EKlubas.Persistence;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -52,10 +51,11 @@ namespace EKlubas.UI.Controllers
             return View(taskTopics);
         }
 
-        public IActionResult ExamResult(int Score)
+        public IActionResult ExamResult(int Score, int Reward)
         {
             ViewBag.ResultMessage = Score >= 50 ? "Sveikiname!" : "Bandykite dar kartą..";
             ViewBag.Score = Score;
+            ViewBag.Reward = Reward;
 
             return View();
         }
