@@ -17,7 +17,7 @@
                 <img src="~/images/EquationHouse.png" alt="Equation house">
                 <div class="caption">
                     <h3>@st.Name</h3>
-                    <p>@st.ExamDescription</p>@st.Topic
+                    <p>@st.ExamDescription</p>
                     <p class="text-right"></p>
                     <a asp-action="@st.GetLink(true)" asp-controller="@st.GetControllerLink(true)" asp-route-difficultyLevel="@st.DifficultyLevel" class="btn btn-warning btn-block btn-lg" role="button">Spręsti</a>
                 </div>

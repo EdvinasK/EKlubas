@@ -11,6 +11,6 @@ namespace EKlubas.Domain.RewardHistory
         public string UserId { get; set; }
         public EKlubasUser User { get; set; }
         public int Reward { get; set; }
-        public DateTime ReceiveTime { get; set; }
+        public DateTime ReceiveTime { get; set; } = DateTime.Now;
     }
 }

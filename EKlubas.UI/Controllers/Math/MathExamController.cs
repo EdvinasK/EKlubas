@@ -50,6 +50,8 @@ namespace EKlubas.UI.Controllers
             {
                 Id = Guid.NewGuid(),
                 CreatedTime = DateTime.Now,
+                PassMark = 50,
+                Reward = 7,
                 EndDate = DateTime.Now.AddMinutes(60),
                 User = user,
             };
@@ -129,16 +131,17 @@ namespace EKlubas.UI.Controllers
 
             _context.StudyExams.Remove(exam);
 
-            return RedirectToAction("ExamResult", "Home", new { Score = score, Reward = reward });
+            return RedirectToAction("ExamResult", "Home", new { Score = score, Reward = reward, exam.PassMark });
         }
 
-        private decimal CalculateMarkCoefficient(int userCorrectAnswersCount,
-                                                 int examCorrectAnswersCount,
-                                                 int userTotalAnswersCount,
-                                                 int examTotalAnswersCount)
+
+        private decimal CalculateMarkCoefficient(decimal userCorrectAnswersCount,
+                                                 decimal examCorrectAnswersCount,
+                                                 decimal userTotalAnswersCount,
+                                                 decimal examTotalAnswersCount)
         {
-            decimal markCoef = (userCorrectAnswersCount / examCorrectAnswersCount)
-                            - (userTotalAnswersCount - userCorrectAnswersCount) / examTotalAnswersCount;
+            decimal markCoef = (userCorrectAnswersCount / examCorrectAnswersCount);
+            markCoef = (markCoef - (userTotalAnswersCount - userCorrectAnswersCount) / examTotalAnswersCount)*100;
 
             return markCoef;
         }

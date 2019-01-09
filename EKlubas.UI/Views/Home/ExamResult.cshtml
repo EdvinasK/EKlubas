@@ -8,8 +8,10 @@
     <h2>Testo rezultatai</h2>
 </div>
 
-<div class="panel panel-default">
+<div class="panel @ViewBag.PanelColor">
     <div class="panel-heading">@ViewBag.ResultMessage</div>
-    <div class="panel-body">Rezultatas: @ViewBag.Score taškai</div>
-    <div class="panel-body">Užsidirbote: @ViewBag.Reward <span class="glyphicon glyphicon-copyright-mark" aria-hidden="true"></span></div>
+    <div class="panel-body">Rezultatas: <strong>@ViewBag.Score %</strong></div>
+    <div class="panel-body">
+        Užsidirbote: <strong>@ViewBag.Reward <span class="glyphicon glyphicon-copyright-mark" aria-hidden="true"></span></strong>
+    </div>
 </div>

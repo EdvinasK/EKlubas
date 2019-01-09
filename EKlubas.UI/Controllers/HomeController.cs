@@ -51,9 +51,10 @@ namespace EKlubas.UI.Controllers
             return View(taskTopics);
         }
 
-        public IActionResult ExamResult(int Score, int Reward)
+        public IActionResult ExamResult(int Score, int Reward, int PassMark)
         {
             ViewBag.ResultMessage = Score >= 50 ? "Sveikiname!" : "Bandykite dar kartą..";
+            ViewBag.PanelColor = Score >= 50 ? "panel-success" : "panel-danger";
             ViewBag.Score = Score;
             ViewBag.Reward = Reward;
 
