@@ -17,10 +17,12 @@ namespace EKlubas.Common.Services
 
             var bonusModifier = (markPercentage - passMark) / 10;
             var reward = baseReward;
+            var baseBonus = Bonus;
 
             while(bonusModifier > 0)
             {
-                Bonus *= Bonus;
+                Bonus = Bonus * baseBonus;
+                bonusModifier--;
             }
 
             reward = Convert.ToInt32(Math.Round(reward * Bonus));
