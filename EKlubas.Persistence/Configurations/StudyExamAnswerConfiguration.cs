@@ -20,6 +20,9 @@ namespace EKlubas.Persistence.Configurations
 
             entity.HasIndex(e => e.StudyExamId);
 
+            entity.Property(e => e.Answer)
+                .IsRequired();
+
             entity.HasOne(sea => sea.StudyExam)
                 .WithMany(se => se.StudyExamResults)
                 .HasForeignKey(sea => sea.StudyExamId);

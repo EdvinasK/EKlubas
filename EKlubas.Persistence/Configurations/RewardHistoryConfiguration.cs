@@ -9,23 +9,23 @@ using System.Threading.Tasks;
 
 namespace EKlubas.Persistence.Configurations
 {
-    public class CityConfiguration : IEntityTypeConfiguration<City>
+    public class RewardHistoryConfiguration : IEntityTypeConfiguration<RewardHistory>
     {
-        public void Configure(EntityTypeBuilder<City> entity)
+        public void Configure(EntityTypeBuilder<RewardHistory> entity)
         {
             entity.HasKey(e => new { e.Id });
 
             entity.Property(e => e.Id)
                 .ValueGeneratedOnAdd();
 
-            entity.HasIndex(e => e.Name);
+            entity.HasIndex(e => e.UserId);
 
-            entity.Property(e => e.Name)
+            entity.Property(e => e.Reward)
                 .IsRequired();
 
-            entity.HasMany(c => c.Users)
-                .WithOne(u => u.City)
-                .HasForeignKey(u => u.CityId);
+            entity.HasOne(rh => rh.User)
+                .WithMany(u => u.RewardHistories)
+                .HasForeignKey(rh => rh.UserId);
         }
     }
 }

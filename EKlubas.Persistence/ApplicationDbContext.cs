@@ -25,6 +25,7 @@ namespace EKlubas.Persistence
         public DbSet<StudyExamAnswer> StudyExamAnswers { get; set; }
         public DbSet<Study> Studies { get; set; }
         public DbSet<StudyExam> StudyExams { get; set; }
+        public DbSet<RewardHistory> RewardHistories { get; set; }
 
         //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         //{

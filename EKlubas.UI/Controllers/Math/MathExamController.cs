@@ -88,6 +88,7 @@ namespace EKlubas.UI.Controllers
         {
             var user = await _manager.GetUserAsync(HttpContext.User);
             var rewardService = new RewardServices();
+            var rewardHistory = new RewardHistory();
             var reward = 0;
             var userCorrectAnswers = 0;
             var score = 0;
@@ -125,25 +126,21 @@ namespace EKlubas.UI.Controllers
 
             if(reward != 0)
             {
+                rewardHistory.ReceiveTime = DateTime.Now;
+                rewardHistory.Reward = reward;
+                rewardHistory.User = user;
+
                 user.Coins += reward;
+
+                await _context.RewardHistories.AddAsync(rewardHistory);
                 await _manager.UpdateAsync(user);
             }
 
             _context.StudyExams.Remove(exam);
 
+            await _context.SaveChangesAsync();
+
             return RedirectToAction("ExamResult", "Home", new { Score = score, Reward = reward, exam.PassMark });
-        }
-
-
-        private decimal CalculateMarkCoefficient(decimal userCorrectAnswersCount,
-                                                 decimal examCorrectAnswersCount,
-                                                 decimal userTotalAnswersCount,
-                                                 decimal examTotalAnswersCount)
-        {
-            decimal markCoef = (userCorrectAnswersCount / examCorrectAnswersCount);
-            markCoef = (markCoef - (userTotalAnswersCount - userCorrectAnswersCount) / examTotalAnswersCount)*100;
-
-            return markCoef;
         }
 
         // GET: MathQuiz/Details/5
@@ -219,6 +216,17 @@ namespace EKlubas.UI.Controllers
             {
                 return View();
             }
+        }
+
+        private decimal CalculateMarkCoefficient(decimal userCorrectAnswersCount,
+                                                 decimal examCorrectAnswersCount,
+                                                 decimal userTotalAnswersCount,
+                                                 decimal examTotalAnswersCount)
+        {
+            decimal markCoef = (userCorrectAnswersCount / examCorrectAnswersCount);
+            markCoef = (markCoef - (userTotalAnswersCount - userCorrectAnswersCount) / examTotalAnswersCount) * 100;
+
+            return markCoef;
         }
     }
 }
