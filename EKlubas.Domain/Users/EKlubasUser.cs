@@ -17,5 +17,6 @@ namespace EKlubas.Domain
         public DateTime CreatedTime { get; set; }
         public DateTime LastLogin { get; set; }
         public ICollection<StudyExam> StudyExams { get; set; }
+        public ICollection<RewardHistory> RewardHistories { get; set; }
     }
 }

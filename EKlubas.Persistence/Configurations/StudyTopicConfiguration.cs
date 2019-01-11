@@ -20,6 +20,15 @@ namespace EKlubas.Persistence.Configurations
 
             entity.HasIndex(e => e.Topic);
 
+            entity.Property(e => e.Name)
+                .IsRequired();
+
+            entity.Property(e => e.Topic)
+                .IsRequired();
+
+            entity.Property(e => e.IsTestPrepared)
+                .HasDefaultValue("false");
+
             entity.Property(e => e.StudyId)
                 .HasDefaultValueSql("1");
         }
