@@ -8,6 +8,7 @@ using EKlubas.Common.Services;
 using EKlubas.Domain;
 using EKlubas.Persistence;
 using EKlubas.UI.Services.Math.Equality;
+using EKlubas.UI.Services.MathExam;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -43,46 +44,17 @@ namespace EKlubas.UI.Controllers
         public async Task<ActionResult> EqualityExam(int difficultyLevel = 1)
         {
             var user = await _manager.GetUserAsync(HttpContext.User);
-            var mathTask = new Equation();
-            var equalityTasks = new EqualityExamDto();
-            // var answerId = Guid.Empty;
-            var studyExam = new StudyExam()
-            {
-                Id = Guid.NewGuid(),
-                CreatedTime = DateTime.Now,
-                PassMark = 50,
-                Reward = 7,
-                EndDate = DateTime.Now.AddMinutes(60),
-                User = user,
-            };
+            var prepEqualityExam = new EqualityExam();
 
             if (difficultyLevel < 1 || difficultyLevel > 3)
                 return RedirectToAction("MathExamCatalog", nameof(MathExamController).Replace("Controller", ""));
 
-            var equalityTasksAndResults = mathTask.GetEqualityTaskAndResult(difficultyLevel);
-
-            foreach(var task in equalityTasksAndResults)
-            {
-                var answerId = Guid.NewGuid();
-
-                var userAnswer = new StudyExamAnswer()
-                {
-                    Id = answerId,
-                    Answer = task.Result
-                };
-
-                equalityTasks.Tasks.Add(userAnswer.Id, task.Message);
-                studyExam.StudyExamResults.Add(userAnswer);
-            }
-
-            equalityTasks.StudyExam = studyExam;
-
-            await _context.StudyExams.AddAsync(studyExam);
-            await _context.SaveChangesAsync();
+            EqualityExamDto equalityTasks = await prepEqualityExam.PrepareEqualityExam(difficultyLevel, user, _context);
 
             return View(equalityTasks);
         }
 
+        
         [HttpPost]
         public async Task<ActionResult> EqualityExam(FinishedExamDto<Guid> finishedExam)
         {
