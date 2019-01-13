@@ -1,6 +1,6 @@
 # EKlubas
 
-Is a web system which allows graduates, students and everyone else to check and improve their knowledge over various school topics we were tought in school.
+Is a web system which allows graduates, students and everyone else to check and improve their knowledge over various school topics we were/are tought in school.
 
 ## Getting Started
 
