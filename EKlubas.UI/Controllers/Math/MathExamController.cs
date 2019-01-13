@@ -37,7 +37,30 @@ namespace EKlubas.UI.Controllers
                                                     .Where(st => st.IsTestPrepared == true)
                                                     .ToListAsync();
 
-            return View(examList);
+            var highscore = await _context.RewardHistories
+                                        .Where(rh => rh.ReceiveTime.Month == DateTime.Now.Month)
+                                        .GroupBy(rh => rh.UserId)
+                                        .Select(rh => new StudyHighScoreDto
+                                        {
+                                            UserName = rh.Key,
+                                            RewardSum = rh.Sum(rhs => rhs.Reward)
+                                        })
+                                        .OrderByDescending(rh => rh.RewardSum)
+                                        .Take(5)
+                                        .ToListAsync();
+
+            foreach(var score in highscore)
+            {
+                score.UserName = _manager.Users.SingleOrDefaultAsync(u => u.Id == score.UserName).Result.Nickname;
+            }
+
+            var highscoreViewModel = new StudyHighScoreViewModel()
+            {
+                StudyHighScores = highscore,
+                StudyTopics = examList
+            };
+
+            return View(highscoreViewModel);
         }
 
         [HttpGet]
@@ -58,17 +81,27 @@ namespace EKlubas.UI.Controllers
         [HttpPost]
         public async Task<ActionResult> EqualityExam(FinishedExamDto<Guid> finishedExam)
         {
+            var exam = await _context.StudyExams
+                            .Where(se => se.Id == finishedExam.ExamId)
+                            .Include(se => se.StudyExamResults)
+                            .SingleOrDefaultAsync();
+
+            //if (finishedExam == null)
+            //{
+            //    _context.StudyExams.Remove(exam);
+
+            //    await _context.SaveChangesAsync();
+
+            //    return RedirectToAction("ExamResult", "Home", new { Score = 0, Reward = 0, PassMark = 0 });
+            //}
+                
+
             var user = await _manager.GetUserAsync(HttpContext.User);
             var rewardService = new RewardServices();
             var rewardHistory = new RewardHistory();
             var reward = 0;
             var userCorrectAnswers = 0;
             var score = 0;
-
-            var exam = await _context.StudyExams
-                            .Where(se => se.Id == finishedExam.ExamId)
-                            .Include(se => se.StudyExamResults)
-                            .SingleOrDefaultAsync();
 
             var examCorrectAnswers = exam.StudyExamResults.Where(ser => ser.Answer == "Ats: Teisinga").ToList();
             var examCorrectAnswersCount = examCorrectAnswers.Count();
