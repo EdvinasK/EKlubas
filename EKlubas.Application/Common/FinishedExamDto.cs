@@ -8,6 +8,11 @@ namespace EKlubas.Application.Common
 {
     public class FinishedExamDto<TAnswers>
     {
+        public FinishedExamDto()
+        {
+            ExamAnswers = new List<TAnswers>();
+        }
+
         public Guid ExamId { get; set; }
         public List<TAnswers> ExamAnswers { get; set; }
     }

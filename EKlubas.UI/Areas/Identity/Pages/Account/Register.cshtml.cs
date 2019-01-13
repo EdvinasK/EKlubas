@@ -98,12 +98,14 @@ namespace EKlubas.UI.Areas.Identity.Pages.Account
                                                 CityId = Input.CityId };
 
                 var result = await _userManager.CreateAsync(user, Input.Password);
-                var createdUser = await _userManager.FindByNameAsync(user.UserName);
-
-                await _userManager.AddClaimAsync(createdUser, 
-                                                    new Claim("base_role", "scholar"));
+                
                 if (result.Succeeded)
                 {
+                    var createdUser = await _userManager.FindByNameAsync(user.UserName);
+
+                    await _userManager.AddClaimAsync(createdUser,
+                                                        new Claim("base_role", "scholar"));
+
                     _logger.LogInformation("Naujas naudotojas sukurtas su pateiktais duomenimis.");
 
                     //var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);

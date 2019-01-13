@@ -1,16 +1,53 @@
-﻿@model IEnumerable<StudyTopic>
+﻿@model StudyHighScoreViewModel
 @{
     ViewData["Title"] = "Matematikos testai";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="well">
-    <h2>Matematikos testai</h2>
+<div>
+    <div class="row">
+        <div class="well col-md-8">
+            <h2>Matematikos testai</h2>
+        </div>
+        <div class="col-md-4">
+            @{
+                int highScoreCounter = 1;
+
+                <div class="panel panel-success">
+                    <div class="panel-heading text-center">
+                        <h4>Aktyviausi EKlubas mėnesio nariai</h4>
+                        <h4>
+                            <span class="label label-default">TOP 5</span>
+                        </h4>
+                    </div>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Vardas</th>
+                                <th>Taškai</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var score in Model.StudyHighScores)
+                            {
+                                <tr>
+                                    <th>@highScoreCounter</th>
+                                    <td>@score.UserName</td>
+                                    <td>@score.RewardSum</td>
+                                </tr>
+                                highScoreCounter++;
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+        </div>
+    </div>
 </div>
 
-
 <div class="row">
-    @foreach (var st in Model)
+    @foreach (var st in Model.StudyTopics)
     {
         <div class="col-sm-4 col-md-3">
             <div class="thumbnail">
