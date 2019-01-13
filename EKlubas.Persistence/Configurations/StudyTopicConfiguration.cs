@@ -29,6 +29,14 @@ namespace EKlubas.Persistence.Configurations
             entity.Property(e => e.IsTestPrepared)
                 .HasDefaultValue("false");
 
+            entity.Property(e => e.PassMark)
+                .HasDefaultValue(50)
+                .IsRequired();
+
+            entity.Property(e => e.Reward)
+                .HasDefaultValue(7)
+                .IsRequired();
+
             entity.Property(e => e.StudyId)
                 .HasDefaultValueSql("1");
         }

@@ -15,6 +15,8 @@ namespace EKlubas.Domain
         public string Topic { get; set; }
         public int DifficultyLevel { get; set; }
         public int DurationInMinutes { get; set; }
+        public int Reward { get; set; }
+        public int PassMark { get; set; }
         public bool IsTestPrepared { get; set; } = false;
         public int StudyId { get; set; }
         public Study Study { get; set; }

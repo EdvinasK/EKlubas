@@ -21,6 +21,9 @@ namespace EKlubas.Persistence.DatabaseSeed
                     ExamDescription = "Lengvas testas sudarytas iš mažų temos uždavinių",
                     Topic = "Math",
                     DifficultyLevel = 1,
+                    PassMark = 50,
+                    Reward = 7,
+                    IsTestPrepared = true,
                     Link = "Equality",
                     DurationInMinutes = 5
                 },
@@ -32,6 +35,9 @@ namespace EKlubas.Persistence.DatabaseSeed
                     Description = "Įvairaus sudėtingumo lygybių uždaviniai be kintamųjų",
                     ExamDescription = "Lengvas testas sudarytas iš mažų temos uždavinių",
                     Topic = "Math",
+                    PassMark = 50,
+                    Reward = 7,
+                    IsTestPrepared = false,
                     DifficultyLevel = 2,
                     Link = "Equality",
                     DurationInMinutes = 10
@@ -44,6 +50,9 @@ namespace EKlubas.Persistence.DatabaseSeed
                     Description = "Įvairaus sudėtingumo lygybių uždaviniai be kintamųjų",
                     ExamDescription = "Lengvas testas sudarytas iš mažų temos uždavinių",
                     Topic = "Math",
+                    PassMark = 50,
+                    Reward = 7,
+                    IsTestPrepared = false,
                     DifficultyLevel = 3,
                     Link = "Equality",
                     DurationInMinutes = 15
@@ -55,6 +64,9 @@ namespace EKlubas.Persistence.DatabaseSeed
                     Description = "Įvairaus sudėtingumo lygčių uždaviniai su vienu kintamuoju x",
                     ExamDescription = "Lengvas testas sudarytas iš mažų temos uždavinių",
                     Topic = "Math",
+                    PassMark = 50,
+                    Reward = 7,
+                    IsTestPrepared = false,
                     DifficultyLevel = 1,
                     Link = "Equation",
                     DurationInMinutes = 5
@@ -67,6 +79,9 @@ namespace EKlubas.Persistence.DatabaseSeed
                     Description = "Įvairaus sudėtingumo lygčių uždaviniai su vienu kintamuoju x",
                     ExamDescription = "Lengvas testas sudarytas iš mažų temos uždavinių",
                     Topic = "Math",
+                    PassMark = 50,
+                    Reward = 7,
+                    IsTestPrepared = false,
                     DifficultyLevel = 2,
                     Link = "Equation",
                     DurationInMinutes = 10
@@ -79,6 +94,9 @@ namespace EKlubas.Persistence.DatabaseSeed
                     Description = "Įvairaus sudėtingumo lygčių uždaviniai su vienu kintamuoju x",
                     ExamDescription = "Lengvas testas sudarytas iš mažų temos uždavinių",
                     Topic = "Math",
+                    PassMark = 50,
+                    Reward = 7,
+                    IsTestPrepared = false,
                     DifficultyLevel = 3,
                     Link = "Equation",
                     DurationInMinutes = 15
@@ -90,6 +108,9 @@ namespace EKlubas.Persistence.DatabaseSeed
                     Description = "Įvairaus sudėtingumo lygybių uždaviniai su vienu kintamuoju x",
                     ExamDescription = "Lengvas testas sudarytas iš mažų temos uždavinių",
                     Topic = "Math",
+                    PassMark = 50,
+                    Reward = 7,
+                    IsTestPrepared = false,
                     DifficultyLevel = 1,
                     Link = "EqualityWithVariable",
                     DurationInMinutes = 5
@@ -102,6 +123,9 @@ namespace EKlubas.Persistence.DatabaseSeed
                     Description = "Įvairaus sudėtingumo lygybių uždaviniai su vienu kintamuoju x",
                     ExamDescription = "Lengvas testas sudarytas iš mažų temos uždavinių",
                     Topic = "Math",
+                    PassMark = 50,
+                    Reward = 7,
+                    IsTestPrepared = false,
                     DifficultyLevel = 2,
                     Link = "EqualityWithVariable",
                     DurationInMinutes = 10
@@ -114,6 +138,9 @@ namespace EKlubas.Persistence.DatabaseSeed
                     Description = "Įvairaus sudėtingumo lygybių uždaviniai su vienu kintamuoju x",
                     ExamDescription = "Lengvas testas sudarytas iš mažų temos uždavinių",
                     Topic = "Math",
+                    PassMark = 50,
+                    Reward = 7,
+                    IsTestPrepared = false,
                     DifficultyLevel = 3,
                     Link = "EqualityWithVariable",
                     DurationInMinutes = 15

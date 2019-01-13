@@ -56,7 +56,9 @@
                     <h3>@st.Name</h3>
                     <p>@st.ExamDescription</p>
                     <p class="text-right"></p>
-                    <a asp-action="@st.GetLink(true)" asp-controller="@st.GetControllerLink(true)" asp-route-difficultyLevel="@st.DifficultyLevel" class="btn btn-warning btn-block btn-lg" role="button">Spręsti</a>
+                    <a asp-action="@st.GetLink(true)" asp-controller="@st.GetControllerLink(true)" class="btn btn-warning btn-block btn-lg" role="button" asp-route-difficultyLevel="@st.DifficultyLevel" asp-route-studyTopicId="@st.Id">
+                        Spręsti
+                    </a>
                 </div>
             </div>
         </div>
