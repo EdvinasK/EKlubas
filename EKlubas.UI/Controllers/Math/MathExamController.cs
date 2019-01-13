@@ -45,6 +45,7 @@ namespace EKlubas.UI.Controllers
                                             UserName = rh.Key,
                                             RewardSum = rh.Sum(rhs => rhs.Reward)
                                         })
+                                        .OrderByDescending(rh => rh.RewardSum)
                                         .Take(5)
                                         .ToListAsync();
 
