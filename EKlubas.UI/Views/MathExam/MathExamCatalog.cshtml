@@ -54,7 +54,9 @@
                 <img src="~/images/EquationHouse.png" alt="Equation house">
                 <div class="caption">
                     <h3>@st.Name</h3>
-                    <p>@st.ExamDescription</p>
+                    <p class="text-warning"><strong>Lygis</strong>: @st.DifficultyText</p>
+                    <p class="text-warning"><strong>Vertė</strong>: @st.Reward <span class="glyphicon glyphicon-copyright-mark" aria-hidden="true"></span> + Bonus</p>
+                    <p class="text-warning"><strong>Minimali riba</strong>: @st.PassMark %</p>
                     <p class="text-right"></p>
                     <a asp-action="@st.GetLink(true)" asp-controller="@st.GetControllerLink(true)" class="btn btn-warning btn-block btn-lg" role="button" asp-route-difficultyLevel="@st.DifficultyLevel" asp-route-studyTopicId="@st.Id">
                         Spręsti
