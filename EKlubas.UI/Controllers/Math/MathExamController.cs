@@ -64,22 +64,22 @@ namespace EKlubas.UI.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> EqualityExam(int studyTopicIdint,
-                                                     int difficultyLevel = 1)
+        public async Task<ActionResult> EqualityExam(int studyTopicId)
         {
             var user = await _manager.GetUserAsync(HttpContext.User);
+            var studyTopic = await _context.StudyTopics.SingleOrDefaultAsync(st => st.Id == studyTopicId);
             var prepEqualityExam = new EqualityExam();
 
-            if (difficultyLevel < 1 || difficultyLevel > 3)
+            if (studyTopic.DifficultyLevel < 1 || studyTopic.DifficultyLevel > 3)
                 return RedirectToAction("MathExamCatalog", nameof(MathExamController).Replace("Controller", ""));
 
             EqualityExamDto equalityTasks = await prepEqualityExam.PrepareEqualityExam(
-                                                                            difficultyLevel, 
+                                                                            studyTopic.DifficultyLevel, 
                                                                             user, 
                                                                             _context,
-                                                                            50,
-                                                                            7,
-                                                                            15);
+                                                                            studyTopic.PassMark,
+                                                                            studyTopic.Reward,
+                                                                            studyTopic.DurationInMinutes);
 
             return View(equalityTasks);
         }
