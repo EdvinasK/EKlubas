@@ -35,9 +35,9 @@ namespace EKlubas.Common.Services
         public static bool IsEquationTrue(int firstNumber, int secondNumber, string equalitySign)
         {
             return equalitySign == "<" ? firstNumber < secondNumber
-                        : equalitySign == "<=" ? firstNumber <= secondNumber
+                        : equalitySign == "&le;" ? firstNumber <= secondNumber
                         : equalitySign == ">" ? firstNumber > secondNumber
-                        : equalitySign == ">=" ? firstNumber >= secondNumber
+                        : equalitySign == "&ge;" ? firstNumber >= secondNumber
                         : equalitySign == "=" ? firstNumber == secondNumber
                         : false;
         }
@@ -98,13 +98,13 @@ namespace EKlubas.Common.Services
                     equalitySign = ">";
                     break;
                 case 1:
-                    equalitySign = ">=";
+                    equalitySign = "&ge;";
                     break;
                 case 2:
                     equalitySign = "<";
                     break;
                 case 3:
-                    equalitySign = "<=";
+                    equalitySign = "&le;";
                     break;
                 case 4:
                     equalitySign = "=";
