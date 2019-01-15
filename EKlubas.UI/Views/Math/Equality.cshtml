@@ -18,7 +18,7 @@
     <ol class="task-list">
         @foreach (var task in Model)
         {
-            <li><span class="task-list-item">@task.Message</span><span class="label label-info task-answer">@task.Result</span></li>
+            <li><span class="task-list-item">@Html.Raw(HttpUtility.HtmlDecode(task.Message))</span><span class="label label-info task-answer">@task.Result</span></li>
         }
         <li></li>
     </ol>

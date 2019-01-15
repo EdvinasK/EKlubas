@@ -26,7 +26,7 @@
             {
                 <li class="form-check">
                     <input class="form-check-input" name="ExamAnswers" type="checkbox" value="@task.Key" id="@task.Key">
-                    <span class="form-check-label task-list-item">@task.Value</span>
+                    <span class="form-check-label task-list-item">@Html.Raw(HttpUtility.HtmlDecode(@task.Value))</span>
                 </li>
             }
             <li></li>

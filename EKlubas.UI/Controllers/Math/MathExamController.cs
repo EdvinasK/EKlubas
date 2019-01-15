@@ -155,6 +155,23 @@ namespace EKlubas.UI.Controllers
             return RedirectToAction("ExamResult", "Home", new { Score = score, Reward = reward, exam.PassMark });
         }
 
+        [HttpGet]
+        public async Task<ActionResult> FractionEqualityExam(int studyTopicId)
+        {
+            var leftSideFractions = new List<Fraction>();
+            int numerator, denumerator = 0;
+
+            for(int i = 0; i < 30; i++)
+            {
+                numerator = MathServices.GetRandomNumber(1, 10);
+                denumerator = MathServices.GetRandomNumber(0, 10) + numerator;
+
+                leftSideFractions.Add(new Fraction(numerator, denumerator));
+            }
+
+            return View(leftSideFractions);
+        }
+
         // GET: MathQuiz/Details/5
         public ActionResult Details(int id)
         {
