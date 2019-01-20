@@ -158,18 +158,87 @@ namespace EKlubas.UI.Controllers
         [HttpGet]
         public async Task<ActionResult> FractionEqualityExam(int studyTopicId)
         {
-            var leftSideFractions = new List<Fraction>();
-            int numerator, denumerator = 0;
+            var user = await _manager.GetUserAsync(HttpContext.User);
+            var studyTopic = await _context.StudyTopics.SingleOrDefaultAsync(st => st.Id == studyTopicId);
+            var prepFractionEqualityExam = new FractionEqualityExam();
+            EqualityExamDto equalityTasks = null;
 
-            for(int i = 0; i < 30; i++)
+            if (user != null && studyTopic != null)
             {
-                numerator = MathServices.GetRandomNumber(1, 10);
-                denumerator = MathServices.GetRandomNumber(0, 10) + numerator;
-
-                leftSideFractions.Add(new Fraction(numerator, denumerator));
+                equalityTasks = await prepFractionEqualityExam.PrepareFractionEqualityExam(
+                                                                            studyTopic.DifficultyLevel,
+                                                                            user,
+                                                                            _context,
+                                                                            studyTopic.PassMark,
+                                                                            studyTopic.Reward,
+                                                                            studyTopic.DurationInMinutes);
+            }
+            else
+            {
+                return RedirectToAction("MathExamCatalog");
             }
 
-            return View(leftSideFractions);
+            return View(equalityTasks);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> FractionEqualityExam(FinishedExamDto<Guid> finishedExam)
+        {
+            var exam = await _context.StudyExams
+                            .Where(se => se.Id == finishedExam.ExamId)
+                            .Include(se => se.StudyExamResults)
+                            .SingleOrDefaultAsync();
+
+            var user = await _manager.GetUserAsync(HttpContext.User);
+            var rewardService = new RewardServices();
+            var rewardHistory = new RewardHistory();
+            var reward = 0;
+            var userCorrectAnswers = 0;
+            var score = 0;
+
+            var examCorrectAnswers = exam.StudyExamResults.Where(ser => ser.Answer == "Teisinga").ToList();
+            var examCorrectAnswersCount = examCorrectAnswers.Count();
+            var userTotalAnswersCount = finishedExam.ExamAnswers.Count;
+            var examTotalAnswersCount = exam.StudyExamResults.Count;
+
+            foreach (var correctAnswer in examCorrectAnswers)
+            {
+                foreach (var userAnswer in finishedExam.ExamAnswers)
+                {
+                    if (correctAnswer.Id == userAnswer)
+                    {
+                        userCorrectAnswers++;
+                        break;
+                    }
+                }
+            }
+
+            var markCoefficient = CalculateMarkCoefficient(userCorrectAnswers,
+                                                        examCorrectAnswersCount,
+                                                        userTotalAnswersCount,
+                                                        examTotalAnswersCount);
+
+            score = Convert.ToInt32(Math.Round(markCoefficient));
+
+            reward = rewardService.CalculateCoinReward(score, exam.PassMark, exam.Reward);
+
+            if (reward != 0)
+            {
+                rewardHistory.ReceiveTime = DateTime.Now;
+                rewardHistory.Reward = reward;
+                rewardHistory.User = user;
+
+                user.Coins += reward;
+
+                await _context.RewardHistories.AddAsync(rewardHistory);
+                await _manager.UpdateAsync(user);
+            }
+
+            _context.StudyExams.Remove(exam);
+
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("ExamResult", "Home", new { Score = score, Reward = reward, exam.PassMark });
         }
 
         // GET: MathQuiz/Details/5

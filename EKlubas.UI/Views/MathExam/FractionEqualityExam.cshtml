@@ -1,17 +1,41 @@
-﻿@model IEnumerable<Fraction>
+﻿@model EqualityExamDto
 
 @{
     ViewData["Title"] = "FractionEqualityExam";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>FractionEqualityExam</h2>
+<div class="task-header">
+    <h2>Matematikos testai</h2>
+    <h3>@ViewBag.TopicTheme</h3>
+    <h4>Ar trupmenos lygios?</h4>
+    <div class="balert alert-info" role="alert">
+        <h4></h4>
+    </div>
+</div>
 
-<div class="row">
-    @foreach (var fraction in Model)
-    {
-        <div class="col-md-2">
-            @Html.Raw(HttpUtility.HtmlDecode(fraction.GetFractionHtml()))
+<div class="helper-header well well-sm text-center">
+    <span class="glyphicon glyphicon-education" aria-hidden="true"></span>
+    <p>Visas teisingas lygybes pažymėkite varnele, o kada norėsite užbaigti spauskite "Užbaigti testą".</p>
+</div>
+
+<div>
+    <form method="post">
+        <input name="ExamId" type="hidden" value="@Model.StudyExam.Id" />
+        <ol class="task-list">
+            @foreach (var task in Model.Tasks)
+            {
+                <li class="form-check">
+                    <input class="form-check-input" name="ExamAnswers" type="checkbox" value="@task.Key" id="@task.Key">
+                    <span class="form-check-label task-fraction-list-item">@Html.Raw(HttpUtility.HtmlDecode(@task.Value))</span>
+                </li>
+            }
+            <li></li>
+        </ol>
+        <div>
+            <button type="submit" class="btn btn-primary btn-lg" data-toggle="tooltip" data-placement="right" title="Spauskite tik tada kada varnele pažymėjote visus teisingus atsakymus.">
+                <h4>Užbaigti testą <span class="glyphicon glyphicon-ok" aria-hidden="true"></span></h4>
+            </button>
         </div>
-    }
+    </form>
 </div>

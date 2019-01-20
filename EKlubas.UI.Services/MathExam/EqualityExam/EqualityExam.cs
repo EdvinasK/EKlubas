@@ -23,15 +23,7 @@ namespace EKlubas.UI.Services.MathExam
             var mathTask = new Equation();
             var equalityTasks = new EqualityExamDto();
             // var answerId = Guid.Empty;
-            var studyExam = new StudyExam()
-            {
-                Id = Guid.NewGuid(),
-                CreatedTime = DateTime.Now,
-                PassMark = passMark,
-                Reward = reward,
-                EndDate = DateTime.Now.AddMinutes(durationInMinutes),
-                User = user,
-            };
+            var studyExam = new StudyExam(passMark, reward, durationInMinutes, user);
 
             var equalityTasksAndResults = mathTask.GetEqualityTaskAndResult(difficultyLevel);
 
@@ -39,11 +31,7 @@ namespace EKlubas.UI.Services.MathExam
             {
                 var answerId = Guid.NewGuid();
 
-                var userAnswer = new StudyExamAnswer()
-                {
-                    Id = answerId,
-                    Answer = task.Result
-                };
+                var userAnswer = new StudyExamAnswer(answerId, task.Result);
 
                 equalityTasks.Tasks.Add(userAnswer.Id, task.Message);
                 studyExam.StudyExamResults.Add(userAnswer);

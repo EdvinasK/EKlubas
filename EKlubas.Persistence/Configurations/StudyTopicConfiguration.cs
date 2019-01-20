@@ -37,6 +37,10 @@ namespace EKlubas.Persistence.Configurations
                 .HasDefaultValue(7)
                 .IsRequired();
 
+            entity.Property(e => e.ImgUrlPath)
+                .HasMaxLength(128)
+                .HasDefaultValue("/images/EquationHouse.png");
+
             entity.Property(e => e.StudyId)
                 .HasDefaultValueSql("1");
         }
