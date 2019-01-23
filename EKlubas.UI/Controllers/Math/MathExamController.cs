@@ -7,7 +7,6 @@ using EKlubas.Application.Common;
 using EKlubas.Common.Services;
 using EKlubas.Domain;
 using EKlubas.Persistence;
-using EKlubas.UI.Services.Math.Equality;
 using EKlubas.UI.Services.MathExam;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -239,6 +238,31 @@ namespace EKlubas.UI.Controllers
             await _context.SaveChangesAsync();
 
             return RedirectToAction("ExamResult", "Home", new { Score = score, Reward = reward, exam.PassMark });
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> FractionFigEqualityExam(int studyTopicId)
+        {
+            var fractionList = new List<FractionFigEqualityDto>();
+            int numerator, denominator = 0;
+
+            for(var i = 0; i < 30; i++)
+            {
+                numerator = MathServices.GetRandomNumber(1, 5);
+                denominator = numerator + MathServices.GetRandomNumber(0, 5);
+                var fraction = new Fraction(numerator, denominator);
+                var taskFraction = new Fraction(fraction.Numerator, fraction.Denominator);
+                bool randomizeDenominator = MathServices.GetRandomNumber(0, 100)%2==0?true:false;
+                if (randomizeDenominator)
+                {
+                    taskFraction.Numerator += MathServices.GetRandomNumber(0, 5);
+                    taskFraction.Denominator += MathServices.GetRandomNumber(0, 5);
+                }
+
+                fractionList.Add(new FractionFigEqualityDto(fraction, taskFraction));
+            }
+
+            return View(fractionList);
         }
 
         // GET: MathQuiz/Details/5

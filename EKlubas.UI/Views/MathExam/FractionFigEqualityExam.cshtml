@@ -1,0 +1,39 @@
+﻿@model IEnumerable<FractionFigEqualityDto>
+@{
+    ViewData["Title"] = "FractionFigEqualityExam";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>FractionFigEqualityExam</h2>
+@foreach(var fractionDto in Model)
+{
+    <div class="row panel panel-horizontal">
+        <div class="col-xs-1">
+            <div class="panel-heading">
+                <div>
+                    <input type="checkbox" />
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-11 panel-body">
+            <div>
+                <h4 style="display:inline;">@Html.Raw(HttpUtility.HtmlDecode(fractionDto.Fraction.GetFractionHtml()))</h4>
+                <svg width="300" height="30">
+                    @for (int i = 0; i < fractionDto.TaskFraction.Denominator; i++)
+                    {
+                        if (i < fractionDto.TaskFraction.Numerator)
+                        {
+                            <rect x="@(i*30)" y="0" rx="0" ry="0" width="30" height="30" style="fill:forestgreen;stroke:black;stroke-width:5;opacity:1" />
+                        }
+                        else
+                        {
+                            <rect x="@(i*30)" y="0" rx="0" ry="0" width="30" height="30" style="fill:white;stroke:black;stroke-width:5;opacity:1" />
+                        }
+                    }
+
+                    Sorry, your browser does not support inline SVG.
+                </svg>
+            </div>
+        </div>
+    </div>
+}

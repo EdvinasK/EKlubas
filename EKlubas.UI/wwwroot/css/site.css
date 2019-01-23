@@ -46,8 +46,22 @@ body {
     color:green;
 }
 
+/*Bootstrap custom overrides*/
+#wrap {
+    padding: 2em;
+}
 
+.panel-horizontal {
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
 
+.panel-horizontal > .panel-body {
+    background-color: white;
+    border-radius: 0 4px 4px 0;
+    border-left: 1px solid #ddd;
+}
 
 
 /*Custom CSS*/
