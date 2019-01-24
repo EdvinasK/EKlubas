@@ -53,6 +53,19 @@ namespace EKlubas.UI.Controllers
                 score.UserName = _manager.Users.SingleOrDefaultAsync(u => u.Id == score.UserName).Result.Nickname;
             }
 
+            var scoreUserCount = highscore.Count;
+
+            for (int i = 5; i > scoreUserCount; i--)
+            {
+                var studyHighScoreEmptyPlace = new StudyHighScoreDto()
+                {
+                    RewardSum = 0,
+                    UserName = "-"
+                };
+
+                highscore.Add(studyHighScoreEmptyPlace);
+            }
+
             var highscoreViewModel = new StudyHighScoreViewModel()
             {
                 StudyHighScores = highscore,
@@ -251,15 +264,15 @@ namespace EKlubas.UI.Controllers
                 numerator = MathServices.GetRandomNumber(1, 5);
                 denominator = numerator + MathServices.GetRandomNumber(0, 5);
                 var fraction = new Fraction(numerator, denominator);
-                var taskFraction = new Fraction(fraction.Numerator, fraction.Denominator);
+                var drawingFraction = new Fraction(fraction.Numerator, fraction.Denominator);
                 bool randomizeDenominator = MathServices.GetRandomNumber(0, 100)%2==0?true:false;
                 if (randomizeDenominator)
                 {
-                    taskFraction.Numerator += MathServices.GetRandomNumber(0, 5);
-                    taskFraction.Denominator += MathServices.GetRandomNumber(0, 5);
+                    drawingFraction.Numerator = MathServices.GetRandomNumber(1, 7);
+                    drawingFraction.Denominator = drawingFraction.Numerator + MathServices.GetRandomNumber(0, 5);
                 }
 
-                fractionList.Add(new FractionFigEqualityDto(fraction, taskFraction));
+                fractionList.Add(new FractionFigEqualityDto(fraction, drawingFraction));
             }
 
             return View(fractionList);

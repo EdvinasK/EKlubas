@@ -9,13 +9,13 @@ namespace EKlubas.Application
     public class FractionFigEqualityDto
     {
         public Fraction Fraction { get; set; }
-        public Fraction TaskFraction { get; set; }
+        public Fraction DrawingFraction { get; set; }
 
         public FractionFigEqualityDto() { }
-        public FractionFigEqualityDto(Fraction fraction, Fraction taskFraction)
+        public FractionFigEqualityDto(Fraction fraction, Fraction drawingFraction)
         {
             Fraction = fraction;
-            TaskFraction = taskFraction;
+            DrawingFraction = drawingFraction;
         }
     }
 }
