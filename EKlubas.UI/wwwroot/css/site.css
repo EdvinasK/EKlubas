@@ -86,7 +86,7 @@ body {
     clear:both;
 }
 
-.task-list li .task-list-item .task-fraction-list-item {
+.task-list li .task-list-item, .task-fraction-list-item {
     padding: 0 5px;
     border-bottom: 1px solid rgb(0,200,200);
     border-right: 1px solid rgb(0,200,200);

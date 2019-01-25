@@ -11,3 +11,8 @@ $('ul.nav li.dropdown').hover(function () {
 $(function () {
     $('[data-toggle="tooltip"]').tooltip();
 });
+
+//$('input.equality-checkbox').on('click', function () {
+//    var $checkboxTr = $(this).parent().parent();
+//    $checkboxTr.toggleClass('success');
+//});

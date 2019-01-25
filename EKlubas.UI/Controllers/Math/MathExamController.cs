@@ -33,7 +33,7 @@ namespace EKlubas.UI.Controllers
         public async Task<ActionResult> MathExamCatalog()
         {
             IEnumerable<StudyTopic> examList = await _context.StudyTopics
-                                                    .Where(st => st.IsTestPrepared == true)
+                                                    .Where(st => st.IsExamPrepared == true)
                                                     .ToListAsync();
 
             var highscore = await _context.RewardHistories

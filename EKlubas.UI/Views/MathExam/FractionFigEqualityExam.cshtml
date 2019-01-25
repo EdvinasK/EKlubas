@@ -4,9 +4,21 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>FractionFigEqualityExam</h2>
+<div class="task-header">
+    <h2>Matematikos testai</h2>
+    <h3>Trupmenų formų lyginimas</h3>
+    <h4>Ar trupmena ir jos atvaizdavimas lygūs?</h4>
+    <div class="balert alert-info" role="alert">
+        <h4></h4>
+    </div>
+</div>
 
-<table class="table">
+<div class="helper-header well well-sm text-center">
+    <span class="glyphicon glyphicon-education" aria-hidden="true"></span>
+    <p>Visas teisingas lygybes pažymėkite varnele, o kada norėsite užbaigti spauskite "Užbaigti testą".</p>
+</div>
+
+<table class="table table-condensed table-bordered table-striped">
         <thead>
             <tr>
                 <th>Atsakymas</th>
@@ -18,8 +30,8 @@
 {
         <tbody>
             <tr>
-                <td><input type="checkbox" /></td>
-                <td><h4>@Html.Raw(HttpUtility.HtmlDecode(fractionDto.Fraction.GetFractionHtml()))</h4></td>
+                <td class="col-md-1 text-center"><input class="equality-checkbox" type="checkbox" /></td>
+                <td class="col-md-1 text-center"><h4>@Html.Raw(HttpUtility.HtmlDecode(fractionDto.Fraction.GetFractionHtml()))</h4></td>
                 <td>
                     <svg width="300" height="30">
                         @for (int i = 0; i < fractionDto.DrawingFraction.Denominator; i++)
@@ -42,36 +54,3 @@
 }
 
 </table>
-
-@foreach(var fractionDto in Model)
-{
-    <div class="row panel panel-horizontal">
-        <div class="col-xs-1">
-            <div class="panel-heading">
-                <div>
-                    <input type="checkbox" />
-                </div>
-            </div>
-        </div>
-        <div class="col-xs-11 panel-body">
-            <div>
-                <h4 style="display:inline;">@Html.Raw(HttpUtility.HtmlDecode(fractionDto.Fraction.GetFractionHtml()))</h4>
-                <svg width="300" height="30">
-                    @for (int i = 0; i < fractionDto.DrawingFraction.Denominator; i++)
-                    {
-                        if (i < fractionDto.DrawingFraction.Numerator)
-                        {
-                            <rect x="@(i*30)" y="0" rx="0" ry="0" width="30" height="30" style="fill:forestgreen;stroke:black;stroke-width:5;opacity:1" />
-                        }
-                        else
-                        {
-                            <rect x="@(i*30)" y="0" rx="0" ry="0" width="30" height="30" style="fill:white;stroke:black;stroke-width:5;opacity:1" />
-                        }
-                    }
-
-                    Sorry, your browser does not support inline SVG.
-                </svg>
-            </div>
-        </div>
-    </div>
-}

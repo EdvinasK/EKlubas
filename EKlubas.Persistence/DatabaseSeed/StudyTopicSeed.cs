@@ -23,7 +23,7 @@ namespace EKlubas.Persistence.DatabaseSeed
                     DifficultyLevel = 1,
                     PassMark = 50,
                     Reward = 7,
-                    IsTestPrepared = true,
+                    IsExamPrepared = true,
                     Link = "Equality",
                     DurationInMinutes = 5
                 },
@@ -37,7 +37,7 @@ namespace EKlubas.Persistence.DatabaseSeed
                     Topic = "Math",
                     PassMark = 50,
                     Reward = 7,
-                    IsTestPrepared = false,
+                    IsExamPrepared = false,
                     DifficultyLevel = 2,
                     Link = "Equality",
                     DurationInMinutes = 10
@@ -52,7 +52,7 @@ namespace EKlubas.Persistence.DatabaseSeed
                     Topic = "Math",
                     PassMark = 50,
                     Reward = 7,
-                    IsTestPrepared = false,
+                    IsExamPrepared = false,
                     DifficultyLevel = 3,
                     Link = "Equality",
                     DurationInMinutes = 15
@@ -66,7 +66,7 @@ namespace EKlubas.Persistence.DatabaseSeed
                     Topic = "Math",
                     PassMark = 50,
                     Reward = 7,
-                    IsTestPrepared = false,
+                    IsExamPrepared = false,
                     DifficultyLevel = 1,
                     Link = "Equation",
                     DurationInMinutes = 5
@@ -81,7 +81,7 @@ namespace EKlubas.Persistence.DatabaseSeed
                     Topic = "Math",
                     PassMark = 50,
                     Reward = 7,
-                    IsTestPrepared = false,
+                    IsExamPrepared = false,
                     DifficultyLevel = 2,
                     Link = "Equation",
                     DurationInMinutes = 10
@@ -96,7 +96,7 @@ namespace EKlubas.Persistence.DatabaseSeed
                     Topic = "Math",
                     PassMark = 50,
                     Reward = 7,
-                    IsTestPrepared = false,
+                    IsExamPrepared = false,
                     DifficultyLevel = 3,
                     Link = "Equation",
                     DurationInMinutes = 15
@@ -110,7 +110,7 @@ namespace EKlubas.Persistence.DatabaseSeed
                     Topic = "Math",
                     PassMark = 50,
                     Reward = 7,
-                    IsTestPrepared = false,
+                    IsExamPrepared = false,
                     DifficultyLevel = 1,
                     Link = "EqualityWithVariable",
                     DurationInMinutes = 5
@@ -125,7 +125,7 @@ namespace EKlubas.Persistence.DatabaseSeed
                     Topic = "Math",
                     PassMark = 50,
                     Reward = 7,
-                    IsTestPrepared = false,
+                    IsExamPrepared = false,
                     DifficultyLevel = 2,
                     Link = "EqualityWithVariable",
                     DurationInMinutes = 10
@@ -140,7 +140,7 @@ namespace EKlubas.Persistence.DatabaseSeed
                     Topic = "Math",
                     PassMark = 50,
                     Reward = 7,
-                    IsTestPrepared = false,
+                    IsExamPrepared = false,
                     DifficultyLevel = 3,
                     Link = "EqualityWithVariable",
                     DurationInMinutes = 15
