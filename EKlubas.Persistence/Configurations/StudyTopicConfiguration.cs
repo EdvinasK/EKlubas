@@ -26,7 +26,10 @@ namespace EKlubas.Persistence.Configurations
             entity.Property(e => e.Topic)
                 .IsRequired();
 
-            entity.Property(e => e.IsTestPrepared)
+            entity.Property(e => e.IsExamPrepared)
+                .HasDefaultValue("false");
+
+            entity.Property(e => e.IsExamOnly)
                 .HasDefaultValue("false");
 
             entity.Property(e => e.PassMark)

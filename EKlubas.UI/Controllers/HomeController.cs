@@ -44,7 +44,9 @@ namespace EKlubas.UI.Controllers
 
         public async Task<IActionResult> MathTasks()
         {
-            IEnumerable<StudyTopic> taskTopics = await _context.StudyTopics.ToListAsync();
+            IEnumerable<StudyTopic> taskTopics = await _context.StudyTopics
+                                                        .Where(st => !st.IsExamOnly)
+                                                        .ToListAsync();
 
             ViewBag.TopicTheme = "Temos";
 

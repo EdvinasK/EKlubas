@@ -18,7 +18,8 @@ namespace EKlubas.Domain
         public int Reward { get; set; }
         public int PassMark { get; set; }
         public string ImgUrlPath { get; set; }
-        public bool IsTestPrepared { get; set; } = false;
+        public bool IsExamPrepared { get; set; } = false;
+        public bool IsExamOnly { get; set; } = false;
         public int StudyId { get; set; }
         public Study Study { get; set; }
 
