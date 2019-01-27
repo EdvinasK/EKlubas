@@ -32,6 +32,13 @@ namespace EKlubas.Persistence.Configurations
             entity.Property(e => e.IsExamOnly)
                 .HasDefaultValue("false");
 
+            entity.Property(e => e.IsNew)
+                .HasDefaultValue("true");
+
+            entity.Property(e => e.CreatedTimestamp)
+                .HasColumnType("datetime")
+                .HasDefaultValueSql("'1900-01-01T00:00:00.000'");
+
             entity.Property(e => e.PassMark)
                 .HasDefaultValue(50)
                 .IsRequired();

@@ -12,7 +12,7 @@ namespace EKlubas.UI.Services.MathExam
 {
     public class EqualityExam
     {
-        public async Task<EqualityExamDto> PrepareEqualityExam(int difficultyLevel, 
+        public async Task<EqualityExamDto<string>> PrepareExam(int difficultyLevel, 
                                                                 EKlubasUser user, 
                                                                 ApplicationDbContext _context,
                                                                 int passMark,
@@ -21,7 +21,7 @@ namespace EKlubas.UI.Services.MathExam
         {
             
             var mathTask = new Equation();
-            var equalityTasks = new EqualityExamDto();
+            var equalityTasks = new EqualityExamDto<string>();
             // var answerId = Guid.Empty;
             var studyExam = new StudyExam(passMark, reward, durationInMinutes, user);
 
