@@ -12,17 +12,17 @@ namespace EKlubas.UI.Services.MathExam
 {
     public class FractionEqualityExam
     {
-        public async Task<EqualityExamDto> PrepareFractionEqualityExam(int difficultyLevel,
+        public async Task<EqualityExamDto<string>> PrepareExam(int difficultyLevel,
                                                                         EKlubasUser user,
                                                                         ApplicationDbContext _context,
                                                                         int passMark,
                                                                         int reward,
                                                                         int durationInMinutes)
         {
-            var equalityExam = new EqualityExamDto();
+            var equalityExam = new EqualityExamDto<string>();
             var fractionLeft = new Fraction();
             var fractionRight = new Fraction();
-            int numerator, denumerator = 0;
+            int numerator, denominator = 0;
             var taskRandomizer = 0;
             var studyExam = new StudyExam(passMark, reward, durationInMinutes, user);
 
@@ -30,24 +30,24 @@ namespace EKlubas.UI.Services.MathExam
             {
                 taskRandomizer = MathServices.GetRandomNumber();
                 numerator = MathServices.GetRandomNumber(1, 5);
-                denumerator = MathServices.GetRandomNumber(0, 5) + numerator;
+                denominator = MathServices.GetRandomNumber(0, 5) + numerator;
 
-                fractionLeft.SetFractionInformation(numerator, denumerator);
+                fractionLeft.SetFractionInformation(numerator, denominator);
 
                 if (taskRandomizer % 3 == 0)
                 {
                     var fractionMultiplier = MathServices.GetRandomNumber(2, 5);
                     numerator = numerator * fractionMultiplier;
-                    denumerator = denumerator * fractionMultiplier;
+                    denominator = denominator * fractionMultiplier;
 
-                    fractionRight.SetFractionInformation(numerator, denumerator);
+                    fractionRight.SetFractionInformation(numerator, denominator);
                 }
                 else
                 {
                     numerator = MathServices.GetRandomNumber(1, 5);
-                    denumerator = MathServices.GetRandomNumber(0, 5) + numerator;
+                    denominator = MathServices.GetRandomNumber(0, 5) + numerator;
 
-                    fractionRight.SetFractionInformation(numerator, denumerator);
+                    fractionRight.SetFractionInformation(numerator, denominator);
                 }
 
                 var answerId = Guid.NewGuid();

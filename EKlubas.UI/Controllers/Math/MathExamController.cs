@@ -34,6 +34,8 @@ namespace EKlubas.UI.Controllers
         {
             IEnumerable<StudyTopic> examList = await _context.StudyTopics
                                                     .Where(st => st.IsExamPrepared == true)
+                                                    .OrderByDescending(st => st.IsNew)
+                                                    .ThenByDescending(st => st.CreatedTimestamp)
                                                     .ToListAsync();
 
             var highscore = await _context.RewardHistories
@@ -85,7 +87,7 @@ namespace EKlubas.UI.Controllers
             if (studyTopic.DifficultyLevel < 1 || studyTopic.DifficultyLevel > 3)
                 return RedirectToAction("MathExamCatalog", nameof(MathExamController).Replace("Controller", ""));
 
-            EqualityExamDto equalityTasks = await prepEqualityExam.PrepareEqualityExam(
+            EqualityExamDto<string> equalityTasks = await prepEqualityExam.PrepareExam(
                                                                             studyTopic.DifficultyLevel, 
                                                                             user, 
                                                                             _context,
@@ -173,11 +175,11 @@ namespace EKlubas.UI.Controllers
             var user = await _manager.GetUserAsync(HttpContext.User);
             var studyTopic = await _context.StudyTopics.SingleOrDefaultAsync(st => st.Id == studyTopicId);
             var prepFractionEqualityExam = new FractionEqualityExam();
-            EqualityExamDto equalityTasks = null;
+            EqualityExamDto<string> equalityTasks = null;
 
             if (user != null && studyTopic != null)
             {
-                equalityTasks = await prepFractionEqualityExam.PrepareFractionEqualityExam(
+                equalityTasks = await prepFractionEqualityExam.PrepareExam(
                                                                             studyTopic.DifficultyLevel,
                                                                             user,
                                                                             _context,
@@ -229,22 +231,9 @@ namespace EKlubas.UI.Controllers
                                                         examCorrectAnswersCount,
                                                         userTotalAnswersCount,
                                                         examTotalAnswersCount);
-
             score = Convert.ToInt32(Math.Round(markCoefficient));
-
             reward = rewardService.CalculateCoinReward(score, exam.PassMark, exam.Reward);
-
-            if (reward != 0)
-            {
-                rewardHistory.ReceiveTime = DateTime.Now;
-                rewardHistory.Reward = reward;
-                rewardHistory.User = user;
-
-                user.Coins += reward;
-
-                await _context.RewardHistories.AddAsync(rewardHistory);
-                await _manager.UpdateAsync(user);
-            }
+            await AddRewardToUser(user, rewardHistory, reward);
 
             _context.StudyExams.Remove(exam);
 
@@ -256,32 +245,100 @@ namespace EKlubas.UI.Controllers
         [HttpGet]
         public async Task<ActionResult> FractionFigEqualityExam(int studyTopicId)
         {
-            var fractionList = new List<FractionFigEqualityDto>();
-            int numerator, denominator = 0;
+            var user = await _manager.GetUserAsync(HttpContext.User);
+            var studyTopic = await _context.StudyTopics.SingleOrDefaultAsync(st => st.Id == studyTopicId);
+            var prepFractionEqualityExam = new FractionFigEqualityExam();
+            EqualityExamDto<FractionFigEqualityDto> equalityTasks = null;
 
-            for(var i = 0; i < 30; i++)
+            if (user != null && studyTopic != null)
             {
-                numerator = MathServices.GetRandomNumber(1, 5);
-                denominator = numerator + MathServices.GetRandomNumber(0, 5);
-                var fraction = new Fraction(numerator, denominator);
-                var drawingFraction = new Fraction(fraction.Numerator, fraction.Denominator);
-                bool randomizeDenominator = MathServices.GetRandomNumber(0, 100)%2==0?true:false;
-                if (randomizeDenominator)
-                {
-                    drawingFraction.Numerator = MathServices.GetRandomNumber(1, 7);
-                    drawingFraction.Denominator = drawingFraction.Numerator + MathServices.GetRandomNumber(0, 5);
-                }
-
-                fractionList.Add(new FractionFigEqualityDto(fraction, drawingFraction));
+                equalityTasks = await prepFractionEqualityExam.PrepareExam(
+                                                                            studyTopic.DifficultyLevel,
+                                                                            user,
+                                                                            _context,
+                                                                            studyTopic.PassMark,
+                                                                            studyTopic.Reward,
+                                                                            studyTopic.DurationInMinutes);
+            }
+            else
+            {
+                return RedirectToAction("MathExamCatalog");
             }
 
-            return View(fractionList);
+            return View(equalityTasks);
         }
 
-        // GET: MathQuiz/Details/5
-        public ActionResult Details(int id)
+        [HttpPost]
+        public async Task<ActionResult> FractionFigEqualityExam(FinishedExamDto<FractionFigEqualityDoneDto> finishedExam)
         {
-            return View();
+            var exam = await _context.StudyExams
+                            .Where(se => se.Id == finishedExam.ExamId)
+                            .Include(se => se.StudyExamResults)
+                            .SingleOrDefaultAsync();
+
+            var user = await _manager.GetUserAsync(HttpContext.User);
+            var rewardService = new RewardServices();
+            var rewardHistory = new RewardHistory();
+            var reward = 0;
+            var userCorrectAnswers = 0;
+            var score = 0;
+
+            var examCorrectAnswers = exam.StudyExamResults.Where(ser => ser.Answer == "Teisinga").ToList();
+            var examCorrectAnswersCount = examCorrectAnswers.Count();
+            var userTotalAnswersCount = finishedExam.ExamAnswers.Count;
+            var examTotalAnswersCount = exam.StudyExamResults.Count;
+
+            foreach (var correctAnswer in examCorrectAnswers)
+            {
+                foreach (var userAnswer in finishedExam.ExamAnswers)
+                {
+                    if (correctAnswer.Id == userAnswer.AnswerId)
+                    {
+                        userCorrectAnswers++;
+                        break;
+                    }
+                }
+            }
+
+            var markCoefficient = CalculateMarkCoefficient(userCorrectAnswers,
+                                                        examCorrectAnswersCount,
+                                                        userTotalAnswersCount,
+                                                        examTotalAnswersCount);
+            score = Convert.ToInt32(Math.Round(markCoefficient));
+            reward = rewardService.CalculateCoinReward(score, exam.PassMark, exam.Reward);
+            await AddRewardToUser(user, rewardHistory, reward);
+
+            _context.StudyExams.Remove(exam);
+
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("ExamResult", "Home", new { Score = score, Reward = reward, exam.PassMark });
+        }
+
+        private async Task AddRewardToUser(EKlubasUser user, RewardHistory rewardHistory, int reward)
+        {
+            if (reward != 0)
+            {
+                rewardHistory.ReceiveTime = DateTime.Now;
+                rewardHistory.Reward = reward;
+                rewardHistory.User = user;
+
+                user.Coins += reward;
+
+                await _context.RewardHistories.AddAsync(rewardHistory);
+                await _manager.UpdateAsync(user);
+            }
+        }
+
+        private decimal CalculateMarkCoefficient(decimal userCorrectAnswersCount,
+                                                 decimal examCorrectAnswersCount,
+                                                 decimal userTotalAnswersCount,
+                                                 decimal examTotalAnswersCount)
+        {
+            decimal markCoef = (userCorrectAnswersCount / examCorrectAnswersCount);
+            markCoef = (markCoef - (userTotalAnswersCount - userCorrectAnswersCount) / examTotalAnswersCount) * 100;
+
+            return markCoef;
         }
 
         // GET: MathQuiz/Create
@@ -351,17 +408,6 @@ namespace EKlubas.UI.Controllers
             {
                 return View();
             }
-        }
-
-        private decimal CalculateMarkCoefficient(decimal userCorrectAnswersCount,
-                                                 decimal examCorrectAnswersCount,
-                                                 decimal userTotalAnswersCount,
-                                                 decimal examTotalAnswersCount)
-        {
-            decimal markCoef = (userCorrectAnswersCount / examCorrectAnswersCount);
-            markCoef = (markCoef - (userTotalAnswersCount - userCorrectAnswersCount) / examTotalAnswersCount) * 100;
-
-            return markCoef;
         }
     }
 }

@@ -53,7 +53,16 @@
             <div class="thumbnail">
                 <img src="@st.ImgUrlPath" alt="Equation house">
                 <div class="caption">
-                    <h3>@st.Name</h3>
+
+                        
+                    
+                    <h3>
+                        @st.Name
+                        @if (st.IsNew)
+                        {
+                            <span class="badge badge-success">Naujiena</span>
+                        }
+                    </h3>
                     <p class="text-warning"><strong>Lygis</strong>: @st.DifficultyText</p>
                     <p class="text-warning"><strong>Vertė</strong>: @st.Reward <span class="glyphicon glyphicon-copyright-mark" aria-hidden="true"></span> + Bonus</p>
                     <p class="text-warning"><strong>Minimali riba</strong>: @st.PassMark %</p>
