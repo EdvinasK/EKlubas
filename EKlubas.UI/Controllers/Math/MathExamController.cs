@@ -276,6 +276,8 @@ namespace EKlubas.UI.Controllers
                             .Include(se => se.StudyExamResults)
                             .SingleOrDefaultAsync();
 
+            var asd = finishedExam.ExamAnswers.ToList();
+
             var user = await _manager.GetUserAsync(HttpContext.User);
             var rewardService = new RewardServices();
             var rewardHistory = new RewardHistory();
