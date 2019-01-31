@@ -40,7 +40,8 @@
                         <input name="ExamAnswers[@(rowNo-1)].Fraction.Denominator" type="hidden" value="@fractionDto.Value.Fraction.Denominator" />
                         <input name="ExamAnswers[@(rowNo-1)].DrawingFraction.Numerator" type="hidden" value="@fractionDto.Value.DrawingFraction.Numerator" />
                         <input name="ExamAnswers[@(rowNo-1)].DrawingFraction.Denominator" type="hidden" value="@fractionDto.Value.DrawingFraction.Denominator" />
-                        <input class="equality-checkbox" type="checkbox" value="@fractionDto.Key" id="@fractionDto.Key" />
+                        <input name="ExamAnswers[@(rowNo-1)].TextAnswerId" type="hidden" value="@fractionDto.Key" />
+                        <input class="equality-checkbox" type="checkbox" name="ExamAnswers[@(rowNo-1)].AnswerId" value="@fractionDto.Key" id="@fractionDto.Key" />
                     </td>
                     <td class="col-md-1 text-center"><h4>@Html.Raw(HttpUtility.HtmlDecode(fractionDto.Value.Fraction.GetFractionHtml()))</h4></td>
                     <td>
