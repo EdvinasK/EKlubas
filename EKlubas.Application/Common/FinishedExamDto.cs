@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EKlubas.Application.Common
+namespace EKlubas.Application
 {
     public class FinishedExamDto<TAnswers>
     {

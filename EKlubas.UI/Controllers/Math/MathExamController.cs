@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using EKlubas.Application;
-using EKlubas.Application.Common;
 using EKlubas.Common.Services;
+using EKlubas.Core.Extensions;
 using EKlubas.Domain;
 using EKlubas.Persistence;
 using EKlubas.UI.Services.MathExam;
@@ -276,19 +276,29 @@ namespace EKlubas.UI.Controllers
                             .Include(se => se.StudyExamResults)
                             .SingleOrDefaultAsync();
 
-            var asd = finishedExam.ExamAnswers.ToList();
-
             var user = await _manager.GetUserAsync(HttpContext.User);
             var rewardService = new RewardServices();
             var rewardHistory = new RewardHistory();
             var reward = 0;
             var userCorrectAnswers = 0;
             var score = 0;
+            var finishedExamAnswers = finishedExam.ExamAnswers.ToList();
 
             var examCorrectAnswers = exam.StudyExamResults.Where(ser => ser.Answer == "Teisinga").ToList();
+            var examIncorrectAnswers = exam.StudyExamResults.Where(ser => ser.Answer == "Neteisinga").ToList();
             var examCorrectAnswersCount = examCorrectAnswers.Count();
-            var userTotalAnswersCount = finishedExam.ExamAnswers.Count;
+            var userTotalAnswersCount = finishedExam.ExamAnswers.Where(ea => ea.AnswerId != Guid.Empty).Count();
             var examTotalAnswersCount = exam.StudyExamResults.Count;
+
+            try
+            {
+                finishedExamAnswers.Where(ea => examCorrectAnswers.Select(ec => ec.Id).Contains(ea.TextAnswerId)).ForEach(ea => ea.IsCorrect = true);
+            }
+            catch
+            {
+
+            }
+            
 
             foreach (var correctAnswer in examCorrectAnswers)
             {
@@ -308,13 +318,27 @@ namespace EKlubas.UI.Controllers
                                                         examTotalAnswersCount);
             score = Convert.ToInt32(Math.Round(markCoefficient));
             reward = rewardService.CalculateCoinReward(score, exam.PassMark, exam.Reward);
+
             await AddRewardToUser(user, rewardHistory, reward);
-
             _context.StudyExams.Remove(exam);
-
             await _context.SaveChangesAsync();
 
-            return RedirectToAction("ExamResult", "Home", new { Score = score, Reward = reward, exam.PassMark });
+            TempData.Put("ExamAnswers", finishedExamAnswers);
+
+            return RedirectToAction("FractionFigEqualityExamResult", "MathExam", new { score, reward, passMark = exam.PassMark });
+        }
+
+        [HttpGet]
+        public ActionResult FractionFigEqualityExamResult(int score, int reward, int passMark)
+        {
+            ViewBag.ResultMessage = score >= passMark ? "Sveikiname!" : "Bandykite dar kartą..";
+            ViewBag.PanelColor = score >= passMark ? "panel-success" : "panel-danger";
+            ViewBag.Score = score;
+            ViewBag.Reward = reward;
+
+            var model = TempData.Get<List<FractionFigEqualityDoneDto>>("ExamAnswers");
+
+            return View(model);
         }
 
         private async Task AddRewardToUser(EKlubasUser user, RewardHistory rewardHistory, int reward)
@@ -339,6 +363,8 @@ namespace EKlubas.UI.Controllers
         {
             decimal markCoef = (userCorrectAnswersCount / examCorrectAnswersCount);
             markCoef = (markCoef - (userTotalAnswersCount - userCorrectAnswersCount) / examTotalAnswersCount) * 100;
+
+            markCoef = markCoef <= 0 ? 0 : markCoef;
 
             return markCoef;
         }

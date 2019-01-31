@@ -16,6 +16,7 @@
   <ItemGroup>
     <ProjectReference Include="..\EKlubas.Application\EKlubas.Application.csproj" />
     <ProjectReference Include="..\EKlubas.Common\EKlubas.Common.csproj" />
+    <ProjectReference Include="..\EKlubas.Core\EKlubas.Core.csproj" />
     <ProjectReference Include="..\EKlubas.Domain\EKlubas.Domain.csproj" />
     <ProjectReference Include="..\EKlubas.Persistence\EKlubas.Persistence.csproj" />
     <ProjectReference Include="..\EKlubas.UI.Services\EKlubas.UI.Services.csproj" />
