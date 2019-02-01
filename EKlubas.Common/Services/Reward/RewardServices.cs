@@ -10,7 +10,7 @@ namespace EKlubas.Common.Services
     {
         private decimal Bonus = 1.15M;
 
-        public int CalculateCoinReward(int markPercentage, int passMark, int baseReward)
+        public int CalculateCoinReward(int markPercentage, int passMark, int baseReward, bool isNew)
         {
             if (markPercentage < passMark)
                 return 0;
@@ -24,6 +24,9 @@ namespace EKlubas.Common.Services
                 Bonus = Bonus * baseBonus;
                 bonusModifier--;
             }
+
+            if (isNew)
+                Bonus *= 1.1m;
 
             reward = Convert.ToInt32(Math.Round(reward * Bonus));
 

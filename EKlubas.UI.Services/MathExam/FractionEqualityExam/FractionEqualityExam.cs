@@ -17,14 +17,15 @@ namespace EKlubas.UI.Services.MathExam
                                                                         ApplicationDbContext _context,
                                                                         int passMark,
                                                                         int reward,
-                                                                        int durationInMinutes)
+                                                                        int durationInMinutes,
+                                                                        bool isNew)
         {
             var equalityExam = new EqualityExamDto<string>();
             var fractionLeft = new Fraction();
             var fractionRight = new Fraction();
             int numerator, denominator = 0;
             var taskRandomizer = 0;
-            var studyExam = new StudyExam(passMark, reward, durationInMinutes, user);
+            var studyExam = new StudyExam(passMark, reward, durationInMinutes, user, isNew);
 
             for (int i = 0; i < 30; i++)
             {

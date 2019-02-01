@@ -17,13 +17,14 @@ namespace EKlubas.UI.Services.MathExam
                                                                 ApplicationDbContext _context,
                                                                 int passMark,
                                                                 int reward,
-                                                                int durationInMinutes)
+                                                                int durationInMinutes,
+                                                                bool isNew)
         {
             
             var mathTask = new Equation();
             var equalityTasks = new EqualityExamDto<string>();
             // var answerId = Guid.Empty;
-            var studyExam = new StudyExam(passMark, reward, durationInMinutes, user);
+            var studyExam = new StudyExam(passMark, reward, durationInMinutes, user, isNew);
 
             var equalityTasksAndResults = mathTask.GetEqualityTaskAndResult(difficultyLevel);
 
