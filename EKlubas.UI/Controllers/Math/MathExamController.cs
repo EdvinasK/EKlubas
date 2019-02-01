@@ -93,7 +93,8 @@ namespace EKlubas.UI.Controllers
                                                                             _context,
                                                                             studyTopic.PassMark,
                                                                             studyTopic.Reward,
-                                                                            studyTopic.DurationInMinutes);
+                                                                            studyTopic.DurationInMinutes,
+                                                                            studyTopic.IsNew);
 
             return View(equalityTasks);
         }
@@ -148,7 +149,7 @@ namespace EKlubas.UI.Controllers
 
             score = Convert.ToInt32(Math.Round(markCoefficient));
 
-            reward = rewardService.CalculateCoinReward(score, exam.PassMark, exam.Reward);
+            reward = rewardService.CalculateCoinReward(score, exam.PassMark, exam.Reward, exam.IsNew);
 
             if(reward != 0)
             {
@@ -185,7 +186,8 @@ namespace EKlubas.UI.Controllers
                                                                             _context,
                                                                             studyTopic.PassMark,
                                                                             studyTopic.Reward,
-                                                                            studyTopic.DurationInMinutes);
+                                                                            studyTopic.DurationInMinutes,
+                                                                            studyTopic.IsNew);
             }
             else
             {
@@ -232,7 +234,7 @@ namespace EKlubas.UI.Controllers
                                                         userTotalAnswersCount,
                                                         examTotalAnswersCount);
             score = Convert.ToInt32(Math.Round(markCoefficient));
-            reward = rewardService.CalculateCoinReward(score, exam.PassMark, exam.Reward);
+            reward = rewardService.CalculateCoinReward(score, exam.PassMark, exam.Reward, exam.IsNew);
             await AddRewardToUser(user, rewardHistory, reward);
 
             _context.StudyExams.Remove(exam);
@@ -258,7 +260,8 @@ namespace EKlubas.UI.Controllers
                                                                             _context,
                                                                             studyTopic.PassMark,
                                                                             studyTopic.Reward,
-                                                                            studyTopic.DurationInMinutes);
+                                                                            studyTopic.DurationInMinutes,
+                                                                            studyTopic.IsNew);
             }
             else
             {
@@ -317,7 +320,7 @@ namespace EKlubas.UI.Controllers
                                                         userTotalAnswersCount,
                                                         examTotalAnswersCount);
             score = Convert.ToInt32(Math.Round(markCoefficient));
-            reward = rewardService.CalculateCoinReward(score, exam.PassMark, exam.Reward);
+            reward = rewardService.CalculateCoinReward(score, exam.PassMark, exam.Reward, exam.IsNew);
 
             await AddRewardToUser(user, rewardHistory, reward);
             _context.StudyExams.Remove(exam);
