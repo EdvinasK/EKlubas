@@ -29,7 +29,7 @@
     @foreach (var fractionDto in Model)
     {
         <tbody>
-            <tr class=@((fractionDto.IsCorrect&&fractionDto.AnswerId!=Guid.Empty)||(!fractionDto.IsCorrect&&fractionDto.AnswerId==Guid.Empty)?"success":"danger")>
+            <tr class=@((fractionDto.IsCorrect)?"success":"danger")>
                 <td>@rowNo</td>
                 <td class="col-md-1"><span class="@(fractionDto.AnswerId != Guid.Empty ? "glyphicon glyphicon-ok" : "")"></span></td>
                 <td class="col-md-1 text-center"><h4>@Html.Raw(HttpUtility.HtmlDecode(fractionDto.Fraction.GetFractionHtml()))</h4></td>

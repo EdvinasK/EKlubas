@@ -338,6 +338,9 @@ namespace EKlubas.UI.Controllers
 
             var model = TempData.Get<List<FractionFigEqualityDoneDto>>("ExamAnswers");
 
+            if (model == null)
+                return RedirectToAction("MathExamCatalog");
+
             return View(model);
         }
 
