@@ -1,0 +1,32 @@
+﻿@model List<FractionEqualityDoneDto>
+@{
+    ViewData["Title"] = "Testo rezultatai";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var rowNo = 1;
+}
+
+<div class="well">
+    <h2>Testo rezultatai</h2>
+</div>
+
+<div class="panel @ViewBag.PanelColor">
+    <div class="panel-heading">@ViewBag.ResultMessage</div>
+    <div class="panel-body">Rezultatas: <strong>@ViewBag.Score %</strong></div>
+    <div class="panel-body">
+        Užsidirbote: <strong>@ViewBag.Reward <span class="glyphicon glyphicon-copyright-mark" aria-hidden="true"></span></strong>
+    </div>
+</div>
+
+<div>
+    <ol class="task-list">
+        @foreach (var task in Model)
+        {
+            <li class="form-check @((task.IsCorrect)?"success":"danger")">
+                <span class="@(task.AnswerId != Guid.Empty ? "glyphicon glyphicon-ok" : "")"></span>
+                <span>@Html.Raw(HttpUtility.HtmlDecode(task.HtmlTask))</span>
+            </li>
+            rowNo++;
+        }
+        <li></li>
+    </ol>
+</div>

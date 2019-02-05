@@ -148,20 +148,8 @@ namespace EKlubas.UI.Controllers
                                                         examTotalAnswersCount);
 
             score = Convert.ToInt32(Math.Round(markCoefficient));
-
             reward = rewardService.CalculateCoinReward(score, exam.PassMark, exam.Reward, exam.IsNew);
-
-            if(reward != 0)
-            {
-                rewardHistory.ReceiveTime = DateTime.Now;
-                rewardHistory.Reward = reward;
-                rewardHistory.User = user;
-
-                user.Coins += reward;
-
-                await _context.RewardHistories.AddAsync(rewardHistory);
-                await _manager.UpdateAsync(user);
-            }
+            await AddRewardToUser(user, rewardHistory, reward);
 
             _context.StudyExams.Remove(exam);
 
@@ -198,7 +186,7 @@ namespace EKlubas.UI.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> FractionEqualityExam(FinishedExamDto<Guid> finishedExam)
+        public async Task<ActionResult> FractionEqualityExam(FinishedExamDto<FractionEqualityDoneDto> finishedExam)
         {
             var exam = await _context.StudyExams
                             .Where(se => se.Id == finishedExam.ExamId)
@@ -211,17 +199,27 @@ namespace EKlubas.UI.Controllers
             var reward = 0;
             var userCorrectAnswers = 0;
             var score = 0;
+            var finishedExamAnswers = finishedExam.ExamAnswers.ToList();
 
             var examCorrectAnswers = exam.StudyExamResults.Where(ser => ser.Answer == "Teisinga").ToList();
             var examCorrectAnswersCount = examCorrectAnswers.Count();
             var userTotalAnswersCount = finishedExam.ExamAnswers.Count;
             var examTotalAnswersCount = exam.StudyExamResults.Count;
 
+            try
+            {
+                finishedExamAnswers.Where(ea => examCorrectAnswers.Select(ec => ec.Id).Contains(ea.TextAnswerId)).ForEach(ea => ea.IsCorrect = true);
+            }
+            catch
+            {
+
+            }
+
             foreach (var correctAnswer in examCorrectAnswers)
             {
                 foreach (var userAnswer in finishedExam.ExamAnswers)
                 {
-                    if (correctAnswer.Id == userAnswer)
+                    if (correctAnswer.Id == userAnswer.AnswerId)
                     {
                         userCorrectAnswers++;
                         break;
@@ -236,12 +234,28 @@ namespace EKlubas.UI.Controllers
             score = Convert.ToInt32(Math.Round(markCoefficient));
             reward = rewardService.CalculateCoinReward(score, exam.PassMark, exam.Reward, exam.IsNew);
             await AddRewardToUser(user, rewardHistory, reward);
-
             _context.StudyExams.Remove(exam);
-
             await _context.SaveChangesAsync();
 
-            return RedirectToAction("ExamResult", "Home", new { Score = score, Reward = reward, exam.PassMark });
+            TempData.Put("ExamAnswers", finishedExamAnswers);
+
+            return RedirectToAction("FractionEqualityExamResult", "MathExam", new { score, reward, passMark = exam.PassMark });
+        }
+
+        [HttpGet]
+        public ActionResult FractionEqualityExamResult(int score, int reward, int passMark)
+        {
+            ViewBag.ResultMessage = score >= passMark ? "Sveikiname!" : "Bandykite dar kartą..";
+            ViewBag.PanelColor = score >= passMark ? "panel-success" : "panel-danger";
+            ViewBag.Score = score;
+            ViewBag.Reward = reward;
+
+            var model = TempData.Get<List<FractionEqualityDoneDto>>("ExamAnswers");
+
+            if (model == null)
+                return RedirectToAction("MathExamCatalog");
+
+            return View(model);
         }
 
         [HttpGet]
@@ -272,7 +286,7 @@ namespace EKlubas.UI.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> FractionFigEqualityExam(FinishedExamDto<FractionFigEqualityDoneDto> finishedExam)
+        public async Task<ActionResult> FractionFigEqualityExam(FinishedExamDto<FractionEqualityDoneDto> finishedExam)
         {
             var exam = await _context.StudyExams
                             .Where(se => se.Id == finishedExam.ExamId)
@@ -339,7 +353,7 @@ namespace EKlubas.UI.Controllers
             ViewBag.Score = score;
             ViewBag.Reward = reward;
 
-            var model = TempData.Get<List<FractionFigEqualityDoneDto>>("ExamAnswers");
+            var model = TempData.Get<List<FractionEqualityDoneDto>>("ExamAnswers");
 
             if (model == null)
                 return RedirectToAction("MathExamCatalog");

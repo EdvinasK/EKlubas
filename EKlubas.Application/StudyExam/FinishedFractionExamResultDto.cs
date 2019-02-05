@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace EKlubas.Application
 {
-    public class FinishedFractionExamResultDto : FractionFigEqualityDoneDto
+    public class FinishedFractionExamResultDto : FractionEqualityDoneDto
     {
         public FinishedFractionExamResultDto() : base() { }
         public FinishedFractionExamResultDto(Fraction fraction, Fraction drawingFraction) : base(fraction, drawingFraction) { }

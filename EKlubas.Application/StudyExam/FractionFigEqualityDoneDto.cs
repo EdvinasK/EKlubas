@@ -6,13 +6,14 @@ using System.Threading.Tasks;
 
 namespace EKlubas.Application
 {
-    public class FractionFigEqualityDoneDto : FractionFigEqualityDto
+    public class FractionEqualityDoneDto : FractionFigEqualityDto
     {
         public Guid AnswerId { get; set; }
         public Guid TextAnswerId { get; set; }
+        public string HtmlTask { get; set; }
         public bool IsCorrect { get; set; }
 
-        public FractionFigEqualityDoneDto() : base() { }
-        public FractionFigEqualityDoneDto(Fraction fraction, Fraction drawingFraction) : base(fraction, drawingFraction) { }
+        public FractionEqualityDoneDto() : base() { }
+        public FractionEqualityDoneDto(Fraction fraction, Fraction drawingFraction) : base(fraction, drawingFraction) { }
     }
 }

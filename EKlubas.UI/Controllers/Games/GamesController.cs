@@ -12,5 +12,10 @@ namespace EKlubas.UI.Controllers.Games
         {
             return View();
         }
+
+        public IActionResult ZombieGame()
+        {
+            return View();
+        }
     }
 }
