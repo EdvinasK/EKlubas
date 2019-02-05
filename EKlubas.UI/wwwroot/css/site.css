@@ -24,6 +24,11 @@ body {
     line-height: 1.4;
 }
 
+canvas {
+    display: block;
+    margin: auto;
+}
+
 /* Make .svg files in the carousel display properly in older browsers */
 .carousel-inner .item img[src$=".svg"] {
     width: 100%;
@@ -140,4 +145,12 @@ body {
 
 .padb-1 {
     margin-bottom: 30px;
+}
+
+.form-check.success {
+    background-color: rgb(223, 240, 216);
+}
+
+.form-check.danger {
+    background-color: rgb(242, 222, 222);
 }
