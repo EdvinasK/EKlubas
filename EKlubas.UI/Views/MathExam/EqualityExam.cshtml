@@ -2,6 +2,7 @@
 @{
     ViewData["Title"] = "Lygybių testas";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var rowNo = 1;
 }
 
 <div class="task-header">
@@ -25,9 +26,12 @@
             @foreach (var task in Model.Tasks)
             {
                 <li class="form-check">
-                    <input class="form-check-input" name="ExamAnswers" type="checkbox" value="@task.Key" id="@task.Key">
+                    <input name="ExamAnswers[@(rowNo-1)].HtmlTask" type="hidden" value="@task.Value" />
+                    <input name="ExamAnswers[@(rowNo-1)].TextAnswerId" type="hidden" value="@task.Key" />
+                    <input class="form-check-input" type="checkbox" name="ExamAnswers[@(rowNo-1)].AnswerId" value="@task.Key" id="@task.Key">
                     <span class="form-check-label task-list-item">@Html.Raw(HttpUtility.HtmlDecode(@task.Value))</span>
                 </li>
+                rowNo++;
             }
             <li></li>
         </ol>
