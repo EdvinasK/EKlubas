@@ -12,17 +12,13 @@ namespace EKlubas.UI.Services.MathExam
 {
     public class FractionFigEqualityExam
     {
-        public async Task<EqualityExamDto<FractionFigEqualityDto>> PrepareExam(int difficultyLevel,
-                                                                        EKlubasUser user,
-                                                                        ApplicationDbContext _context,
-                                                                        int passMark,
-                                                                        int reward,
-                                                                        int durationInMinutes,
-                                                                        bool isNew)
+        public async Task<EqualityExamDto<FractionFigEqualityDto>> PrepareExam(StudyTopic studyTopic,
+                                                                                EKlubasUser user,
+                                                                                ApplicationDbContext _context)
         {
             var equalityExam = new EqualityExamDto<FractionFigEqualityDto>();
             int numerator, denominator = 0;
-            var studyExam = new StudyExam(passMark, reward, durationInMinutes, user, isNew);
+            var studyExam = new StudyExam(studyTopic.PassMark, studyTopic.Reward, studyTopic.DurationInMinutes, user, studyTopic.IsNew);
 
             for (int i = 0; i < 30; i++)
             {
