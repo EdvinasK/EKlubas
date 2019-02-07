@@ -12,21 +12,17 @@ namespace EKlubas.UI.Services.MathExam
 {
     public class EqualityExam
     {
-        public async Task<EqualityExamDto<string>> PrepareExam(int difficultyLevel, 
+        public async Task<EqualityExamDto<string>> PrepareExam(StudyTopic studyTopic, 
                                                                 EKlubasUser user, 
-                                                                ApplicationDbContext _context,
-                                                                int passMark,
-                                                                int reward,
-                                                                int durationInMinutes,
-                                                                bool isNew)
+                                                                ApplicationDbContext _context)
         {
             
             var mathTask = new Equation();
             var equalityTasks = new EqualityExamDto<string>();
             // var answerId = Guid.Empty;
-            var studyExam = new StudyExam(passMark, reward, durationInMinutes, user, isNew);
+            var studyExam = new StudyExam(studyTopic.PassMark, studyTopic.Reward, studyTopic.DurationInMinutes, user, studyTopic.IsNew);
 
-            var equalityTasksAndResults = mathTask.GetEqualityTaskAndResult(difficultyLevel);
+            var equalityTasksAndResults = mathTask.GetEqualityTaskAndResult(studyTopic.DifficultyLevel);
 
             foreach (var task in equalityTasksAndResults)
             {
@@ -45,6 +41,5 @@ namespace EKlubas.UI.Services.MathExam
 
             return equalityTasks;
         }
-
     }
 }

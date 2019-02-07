@@ -78,6 +78,16 @@ namespace EKlubas.UI.Controllers
         }
 
         [HttpGet]
+        public async Task<ActionResult> MathExam(int studyTopicId)
+        {
+            var user = await _manager.GetUserAsync(HttpContext.User);
+            var studyTopic = await _context.StudyTopics.SingleOrDefaultAsync(st => st.Id == studyTopicId);
+            var prepEqualityExam = new EqualityExam();
+
+            return View();
+        }
+
+        [HttpGet]
         public async Task<ActionResult> EqualityExam(int studyTopicId)
         {
             var user = await _manager.GetUserAsync(HttpContext.User);
@@ -87,14 +97,7 @@ namespace EKlubas.UI.Controllers
             if (studyTopic.DifficultyLevel < 1 || studyTopic.DifficultyLevel > 3)
                 return RedirectToAction("MathExamCatalog", nameof(MathExamController).Replace("Controller", ""));
 
-            EqualityExamDto<string> equalityTasks = await prepEqualityExam.PrepareExam(
-                                                                            studyTopic.DifficultyLevel, 
-                                                                            user, 
-                                                                            _context,
-                                                                            studyTopic.PassMark,
-                                                                            studyTopic.Reward,
-                                                                            studyTopic.DurationInMinutes,
-                                                                            studyTopic.IsNew);
+            EqualityExamDto<string> equalityTasks = await prepEqualityExam.PrepareExam(studyTopic, user, _context);
 
             return View(equalityTasks);
         }
@@ -182,14 +185,7 @@ namespace EKlubas.UI.Controllers
 
             if (user != null && studyTopic != null)
             {
-                equalityTasks = await prepFractionEqualityExam.PrepareExam(
-                                                                            studyTopic.DifficultyLevel,
-                                                                            user,
-                                                                            _context,
-                                                                            studyTopic.PassMark,
-                                                                            studyTopic.Reward,
-                                                                            studyTopic.DurationInMinutes,
-                                                                            studyTopic.IsNew);
+                equalityTasks = await prepFractionEqualityExam.PrepareExam(studyTopic, user, _context);
             }
             else
             {
@@ -266,14 +262,7 @@ namespace EKlubas.UI.Controllers
 
             if (user != null && studyTopic != null)
             {
-                equalityTasks = await prepFractionEqualityExam.PrepareExam(
-                                                                            studyTopic.DifficultyLevel,
-                                                                            user,
-                                                                            _context,
-                                                                            studyTopic.PassMark,
-                                                                            studyTopic.Reward,
-                                                                            studyTopic.DurationInMinutes,
-                                                                            studyTopic.IsNew);
+                equalityTasks = await prepFractionEqualityExam.PrepareExam(studyTopic, user, _context);
             }
             else
             {
@@ -385,75 +374,6 @@ namespace EKlubas.UI.Controllers
             markCoef = markCoef <= 0 ? 0 : markCoef;
 
             return markCoef;
-        }
-
-        // GET: MathQuiz/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: MathQuiz/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
-        {
-            try
-            {
-                // TODO: Add insert logic here
-
-                return RedirectToAction(nameof(MathExamCatalog));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: MathQuiz/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: MathQuiz/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction(nameof(MathExamCatalog));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: MathQuiz/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: MathQuiz/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction(nameof(MathExamCatalog));
-            }
-            catch
-            {
-                return View();
-            }
         }
     }
 }
