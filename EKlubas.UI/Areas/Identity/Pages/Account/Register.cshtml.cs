@@ -5,7 +5,6 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
-using EKlubas.Contracts.Abstractions;
 using EKlubas.Domain;
 using EKlubas.Persistence;
 using Microsoft.AspNetCore.Authorization;
