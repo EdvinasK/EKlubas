@@ -1,4 +1,5 @@
-﻿using EKlubas.Domain;
+﻿using EKlubas.Contracts.Services.Math;
+using EKlubas.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace EKlubas.Application
 {
-    public class MathExamDto
+    public class MathExamDto : IExam
     {
         public MathExamDto()
         {

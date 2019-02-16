@@ -26,6 +26,21 @@ namespace EKlubas.Common.Services
         }
 
         /// <summary>
+        /// Calculates equation with provided calc and secondNumber variables with the provided string operator.
+        /// </summary>
+        /// <param name="calc">Variable which will store equation results.</param>
+        /// <param name="secondNumber">Variable which will be worked with through the operation.</param>
+        /// <param name="operatorSign">String operator sign which will be reconverted to calculatable form.</param>
+        public static void SolveStringOperatorAbEquation(ref decimal calc, decimal secondNumber, string operatorSign)
+        {
+            calc = operatorSign == "+" ? calc + secondNumber
+                                        : operatorSign == "-" ? calc - secondNumber
+                                        : operatorSign == "/" ? calc / secondNumber
+                                        : operatorSign == "*" ? calc * secondNumber
+                                        : 0;
+        }
+
+        /// <summary>
         /// Finds if equation is true or not.
         /// </summary>
         /// <param name="firstNumber">Left side of equation.</param>
@@ -134,6 +149,9 @@ namespace EKlubas.Common.Services
         /// <returns>Gets a random number between given min and max variables</returns>
         public static int GetRandomNumber(int min, int max)
         {
+            if (min >= max)
+                throw new Exception("Minnimum value is larger or equal to maximum value.");
+
             lock (getRandomNr)
             {
                 return getRandomNr.Next(min, max);

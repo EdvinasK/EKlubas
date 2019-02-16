@@ -1,4 +1,6 @@
 ﻿using EKlubas.Application;
+using EKlubas.Contracts.Persistence;
+using EKlubas.Contracts.Services;
 using EKlubas.Contracts.Services.Math;
 using EKlubas.Domain;
 using EKlubas.Persistence;
@@ -10,16 +12,16 @@ using System.Threading.Tasks;
 
 namespace EKlubas.UI.Services.MathExam
 {
-    public class PrepareMathExam
+    public class PrepareMathExam : IPrepareExam
     {
-        public async Task<EqualityExamDto<string>> ExecuteAsync(StudyTopic studyTopic,
-                                                                EKlubasUser user,
-                                                                ApplicationDbContext _context,
-                                                                IPrepareTaskCommand<EqualityExamDto<string>, ApplicationDbContext> prepareTaskCommand)
+        public async Task<IExam> ExecuteAsync(StudyTopic studyTopic,
+                                                EKlubasUser user,
+                                                IApplicationDbContext _context,
+                                                IPrepareTaskCommand<IExam> prepareTaskCommand)
         {
             var studyExam = new StudyExam(studyTopic.PassMark, studyTopic.Reward, studyTopic.DurationInMinutes, user, studyTopic.IsNew);
 
-            var equalityTasksAndResults = await prepareTaskCommand.ExecAsync(studyExam, _context);
+            var equalityTasksAndResults = await prepareTaskCommand.ExecuteAsync(studyExam, _context);
 
             return equalityTasksAndResults;
         }
