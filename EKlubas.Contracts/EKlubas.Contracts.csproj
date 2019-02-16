@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="Persistence\Repositories\" />
     <Folder Include="Repositories\" />
   </ItemGroup>
 

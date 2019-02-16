@@ -1,0 +1,45 @@
+﻿@model MathExamDto
+@{
+    ViewData["Title"] = "Lygybių testas";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var rowNo = 1;
+}
+
+<div class="task-header">
+    <h2>Matematikos testai</h2>
+    <h3>@ViewBag.TopicTheme</h3>
+    <h4>Ar lygybė teisinga?</h4>
+    <div class="balert alert-info" role="alert">
+        <h4></h4>
+    </div>
+</div>
+
+<div class="helper-header well well-sm text-center">
+    <span class="glyphicon glyphicon-education" aria-hidden="true"></span>
+    <p>Visas teisingas lygybes pažymėkite varnele, o kada norėsite užbaigti spauskite "Užbaigti testą".</p>
+</div>
+
+<div>
+    <form method="post">
+        <input name="ExamId" type="hidden" value="@Model.StudyExam.Id" />
+        <ol class="task-list">
+            @foreach (var task in Model.Tasks)
+            {
+                <li>
+                    <input name="ExamAnswers[@(rowNo-1)].HtmlTask" type="hidden" value="@task.Value" />
+                    <input name="ExamAnswers[@(rowNo-1)].TextAnswerId" type="hidden" value="@task.Key" />
+                    <span class="form-check-label task-list-item">@Html.Raw(HttpUtility.HtmlDecode(@task.Value)) = </span>
+                    <input class="form-check-input" size="5" type="text" name="ExamAnswers[@(rowNo-1)].AnswerId" id="@task.Key">
+
+                </li>
+                rowNo++;
+            }
+            <li></li>
+        </ol>
+        <div>
+            <button type="submit" class="btn btn-primary btn-lg" data-toggle="tooltip" data-placement="right" title="Spauskite tik tada kada varnele pažymėjote visus teisingus atsakymus.">
+                <h4>Užbaigti testą <span class="glyphicon glyphicon-ok" aria-hidden="true"></span></h4>
+            </button>
+        </div>
+    </form>
+</div>

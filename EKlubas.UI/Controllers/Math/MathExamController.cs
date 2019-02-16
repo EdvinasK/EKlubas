@@ -7,6 +7,7 @@ using EKlubas.Common.Services;
 using EKlubas.Core.Extensions;
 using EKlubas.Domain;
 using EKlubas.Persistence;
+using EKlubas.UI.Services.Math.Commands;
 using EKlubas.UI.Services.MathExam;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -82,9 +83,14 @@ namespace EKlubas.UI.Controllers
         {
             var user = await _manager.GetUserAsync(HttpContext.User);
             var studyTopic = await _context.StudyTopics.SingleOrDefaultAsync(st => st.Id == studyTopicId);
-            var prepEqualityExam = new EqualityExam();
+            var prepareExam = new PrepareMathExam();
+            var realNumberTaskCmd = new PrepareRnTaskCommand();
+            var examDto = await prepareExam.ExecuteAsync(studyTopic, user, _context, realNumberTaskCmd);
 
-            return View();
+            if(examDto != null)
+                return View(examDto);
+
+            return RedirectToAction("MathExamCatalog", nameof(MathExamController).Replace("Controller", ""));
         }
 
         [HttpGet]

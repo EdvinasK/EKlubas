@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using EKlubas.Contracts.Abstractions;
+using EKlubas.Contracts.Persistence;
 using EKlubas.Domain;
 using EKlubas.Persistence.Configurations;
 using EKlubas.Persistence.DatabaseSeed;

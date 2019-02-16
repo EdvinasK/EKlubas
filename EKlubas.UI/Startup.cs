@@ -16,7 +16,6 @@ using Newtonsoft.Json.Serialization;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using EKlubas.Common.Services.Communication;
-using EKlubas.Contracts.Abstractions;
 using EKlubas.Domain;
 
 namespace EKlubas.UI
@@ -75,7 +74,7 @@ namespace EKlubas.UI
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            if (!env.IsDevelopment())
+            if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
