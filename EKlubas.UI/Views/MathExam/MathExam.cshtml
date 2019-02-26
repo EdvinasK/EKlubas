@@ -29,7 +29,7 @@
                     <input name="ExamAnswers[@(rowNo-1)].HtmlTask" type="hidden" value="@task.Value" />
                     <input name="ExamAnswers[@(rowNo-1)].TextAnswerId" type="hidden" value="@task.Key" />
                     <span class="form-check-label task-list-item">@Html.Raw(HttpUtility.HtmlDecode(@task.Value)) = </span>
-                    <input class="form-check-input" size="5" type="text" name="ExamAnswers[@(rowNo-1)].AnswerId" id="@task.Key">
+                    <input class="form-check-input" size="5" type="text" name="ExamAnswers[@(rowNo-1)].UserAnswer" id="@task.Key">
 
                 </li>
                 rowNo++;

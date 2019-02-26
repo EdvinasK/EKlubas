@@ -19,7 +19,7 @@ namespace EKlubas.UI.Services.Math.Commands
         {
             var rnExam = new MathExamDto();
 
-            for (int i = 0; i < 30; i++)
+            for (int i = 0; i < 12; i++)
             {
                 var answerId = Guid.NewGuid();
                 var taskSize = MathServices.GetRandomNumber(2, 4);
