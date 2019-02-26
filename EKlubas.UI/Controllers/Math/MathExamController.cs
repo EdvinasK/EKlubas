@@ -8,7 +8,6 @@ using EKlubas.Core.Extensions;
 using EKlubas.Domain;
 using EKlubas.Persistence;
 using EKlubas.UI.Services.Factories;
-using EKlubas.UI.Services.Math.Commands;
 using EKlubas.UI.Services.MathExam;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -32,7 +31,7 @@ namespace EKlubas.UI.Controllers
         }
 
         // GET: MathQuiz
-        public async Task<ActionResult> MathExamCatalog()
+        public async Task<IActionResult> MathExamCatalog()
         {
             IEnumerable<StudyTopic> examList = await _context.StudyTopics
                                                     .Where(st => st.IsExamPrepared == true)
@@ -80,7 +79,7 @@ namespace EKlubas.UI.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> MathExam(int studyTopicId)
+        public async Task<IActionResult> MathExam(int studyTopicId)
         {
             var user = await _manager.GetUserAsync(HttpContext.User);
             var studyTopic = await _context.StudyTopics.SingleOrDefaultAsync(st => st.Id == studyTopicId);
@@ -94,7 +93,7 @@ namespace EKlubas.UI.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> MathExam(FinishedExamDto<MathDoneDto> finishedExam) // NOTE Just a placeholder for now
+        public async Task<IActionResult> MathExam(FinishedExamDto<MathDoneDto> finishedExam) // NOTE Just a placeholder for now
         {
             var exam = await _context.StudyExams
                             .Where(se => se.Id == finishedExam.ExamId)
@@ -108,6 +107,13 @@ namespace EKlubas.UI.Controllers
             var userCorrectAnswers = 0;
             var score = 0;
             var finishedExamAnswers = finishedExam.ExamAnswers.ToList();
+
+            //TODO new EvalutateExam() should be used to get score
+
+            foreach (var examAnswer in exam.StudyExamResults)
+            {
+                finishedExamAnswers.Where(ea => ea.UserAnswer == examAnswer.Answer && ea.TextAnswerId == examAnswer.Id).ForEach(ea => ea.IsCorrect = true);
+            }
 
             var examCorrectAnswers = exam.StudyExamResults.Where(ser => ser.Answer == "Teisinga").ToList();
             var examIncorrectAnswers = exam.StudyExamResults.Where(ser => ser.Answer == "Neteisinga").ToList();
@@ -123,7 +129,6 @@ namespace EKlubas.UI.Controllers
             {
 
             }
-
 
             foreach (var correctAnswer in examCorrectAnswers)
             {
@@ -154,7 +159,7 @@ namespace EKlubas.UI.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> EqualityExam(int studyTopicId)
+        public async Task<IActionResult> EqualityExam(int studyTopicId)
         {
             var user = await _manager.GetUserAsync(HttpContext.User);
             var studyTopic = await _context.StudyTopics.SingleOrDefaultAsync(st => st.Id == studyTopicId);
@@ -170,7 +175,7 @@ namespace EKlubas.UI.Controllers
 
         
         [HttpPost]
-        public async Task<ActionResult> EqualityExam(FinishedExamDto<MathDoneDto> finishedExam)
+        public async Task<IActionResult> EqualityExam(FinishedExamDto<MathDoneDto> finishedExam)
         {
             var exam = await _context.StudyExams
                             .Where(se => se.Id == finishedExam.ExamId)
@@ -226,7 +231,7 @@ namespace EKlubas.UI.Controllers
         }
 
         [HttpGet]
-        public ActionResult EqualityExamResult(int score, int reward, int passMark)
+        public IActionResult EqualityExamResult(int score, int reward, int passMark)
         {
             ViewBag.ResultMessage = score >= passMark ? "Sveikiname!" : "Bandykite dar kartą..";
             ViewBag.PanelColor = score >= passMark ? "panel-success" : "panel-danger";
@@ -242,7 +247,7 @@ namespace EKlubas.UI.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> FractionEqualityExam(int studyTopicId)
+        public async Task<IActionResult> FractionEqualityExam(int studyTopicId)
         {
             var user = await _manager.GetUserAsync(HttpContext.User);
             var studyTopic = await _context.StudyTopics.SingleOrDefaultAsync(st => st.Id == studyTopicId);
@@ -262,7 +267,7 @@ namespace EKlubas.UI.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> FractionEqualityExam(FinishedExamDto<MathDoneDto> finishedExam)
+        public async Task<IActionResult> FractionEqualityExam(FinishedExamDto<MathDoneDto> finishedExam)
         {
             var exam = await _context.StudyExams
                             .Where(se => se.Id == finishedExam.ExamId)
@@ -319,12 +324,12 @@ namespace EKlubas.UI.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> FractionFigEqualityExam(int studyTopicId)
+        public async Task<IActionResult> FractionFigEqualityExam(int studyTopicId)
         {
             var user = await _manager.GetUserAsync(HttpContext.User);
             var studyTopic = await _context.StudyTopics.SingleOrDefaultAsync(st => st.Id == studyTopicId);
             var prepFractionEqualityExam = new FractionFigEqualityExam();
-            EqualityExamDto<FractionFigEqualityDto> equalityTasks = null;
+            EqualityExamDto<AnswerFormsDto> equalityTasks = null;
 
             if (user != null && studyTopic != null)
             {
@@ -339,7 +344,7 @@ namespace EKlubas.UI.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> FractionFigEqualityExam(FinishedExamDto<MathDoneDto> finishedExam)
+        public async Task<IActionResult> FractionFigEqualityExam(FinishedExamDto<MathDoneDto> finishedExam)
         {
             var exam = await _context.StudyExams
                             .Where(se => se.Id == finishedExam.ExamId)
@@ -399,7 +404,7 @@ namespace EKlubas.UI.Controllers
         }
 
         [HttpGet]
-        public ActionResult FractionFigEqualityExamResult(int score, int reward, int passMark)
+        public IActionResult FractionFigEqualityExamResult(int score, int reward, int passMark)
         {
             ViewBag.ResultMessage = score >= passMark ? "Sveikiname!" : "Bandykite dar kartą..";
             ViewBag.PanelColor = score >= passMark ? "panel-success" : "panel-danger";

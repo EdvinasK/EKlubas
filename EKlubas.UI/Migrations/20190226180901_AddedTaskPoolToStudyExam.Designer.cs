@@ -4,14 +4,16 @@ using EKlubas.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EKlubas.UI.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190226180901_AddedTaskPoolToStudyExam")]
+    partial class AddedTaskPoolToStudyExam
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -242,6 +244,10 @@ namespace EKlubas.UI.Migrations
                     b.Property<int>("Reward")
                         .ValueGeneratedOnAdd()
                         .HasDefaultValueSql("10");
+
+                    b.Property<int>("TaskPool")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValueSql("30");
 
                     b.Property<string>("UserId");
 

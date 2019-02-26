@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace EKlubas.Application
 {
-    public class FractionFigEqualityDto
+    public class AnswerFormsDto
     {
         public Fraction Fraction { get; set; }
         public Fraction DrawingFraction { get; set; }
 
-        public FractionFigEqualityDto() { }
-        public FractionFigEqualityDto(Fraction fraction, Fraction drawingFraction)
+        public AnswerFormsDto() { }
+        public AnswerFormsDto(Fraction fraction, Fraction drawingFraction)
         {
             Fraction = fraction;
             DrawingFraction = drawingFraction;
