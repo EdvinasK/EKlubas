@@ -1,7 +1,7 @@
 ﻿using EKlubas.Application;
 using EKlubas.Common.Services;
 using EKlubas.Contracts.Persistence;
-using EKlubas.Contracts.Services.Math;
+using EKlubas.Contracts.Services;
 using EKlubas.Domain;
 using EKlubas.Persistence;
 using System;

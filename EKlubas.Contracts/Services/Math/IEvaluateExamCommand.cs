@@ -4,10 +4,10 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EKlubas.Contracts.Services.Math
+namespace EKlubas.Contracts.Services
 {
     public interface IEvaluateExamCommand
     {
-        Task<IExamEvaluation> Exec(IEnumerable<IExamAnswer> userAnswers, StudyExam studyExam);
+        IExamEvaluation Exec(IEnumerable<IExamAnswer> userAnswers, StudyExam studyExam);
     }
 }

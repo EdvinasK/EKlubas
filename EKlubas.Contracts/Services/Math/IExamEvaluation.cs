@@ -2,13 +2,10 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace EKlubas.Contracts.Services.Math
+namespace EKlubas.Contracts.Services
 {
     public interface IExamEvaluation
     {
-        int UserCorrectAnswersCount { get; set; }
-        int UserTotalAnswersCount { get; set; }
-        int ExamCorrectAnswersCount { get; set; }
-        int ExamTotalAnswersCount { get; set; }
+        int Score { get; set; }
     }
 }

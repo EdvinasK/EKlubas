@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EKlubas.Contracts.Services.Math.Equality
+namespace EKlubas.Contracts.Services
 {
     public interface IEquation
     {

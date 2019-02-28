@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using EKlubas.UI.Services.Math.Equality;
+using EKlubas.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EKlubas.UI.Controllers
