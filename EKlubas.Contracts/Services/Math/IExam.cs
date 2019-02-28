@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EKlubas.Contracts.Services.Math
+namespace EKlubas.Contracts.Services
 {
     public interface IExam
     {

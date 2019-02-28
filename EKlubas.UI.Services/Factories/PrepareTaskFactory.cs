@@ -1,4 +1,4 @@
-﻿using EKlubas.Contracts.Services.Math;
+﻿using EKlubas.Contracts.Services;
 using EKlubas.UI.Services.Math.Commands;
 using System;
 using System.Collections.Generic;

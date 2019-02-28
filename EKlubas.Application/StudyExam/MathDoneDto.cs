@@ -1,4 +1,4 @@
-﻿using EKlubas.Contracts.Services.Math;
+﻿using EKlubas.Contracts.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +13,7 @@ namespace EKlubas.Application
         public Guid TextAnswerId { get; set; }
         public string HtmlTask { get; set; }
         public bool IsCorrect { get; set; }
+        public string CorrectAnswer { get; set; }
         public string UserAnswer { get; set; }
 
         public MathDoneDto() : base() { }

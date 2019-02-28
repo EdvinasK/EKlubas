@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EKlubas.UI.Services.MathExam
+namespace EKlubas.UI.Services
 {
     public class FractionEqualityExam
     {

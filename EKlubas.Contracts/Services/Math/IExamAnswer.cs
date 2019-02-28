@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace EKlubas.Contracts.Services.Math
+namespace EKlubas.Contracts.Services
 {
     public interface IExamAnswer
     {

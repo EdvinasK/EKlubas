@@ -1,0 +1,58 @@
+﻿@model List<MathDoneDto>
+@{
+    ViewData["Title"] = "Testo rezultatai";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var rowNo = 1;
+}
+
+<div class="well">
+    <h2>Testo rezultatai</h2>
+</div>
+
+<div class="panel @ViewBag.PanelColor">
+    <div class="panel-heading">@ViewBag.ResultMessage</div>
+    <div class="panel-body">Rezultatas: <strong>@ViewBag.Score %</strong></div>
+    <div class="panel-body">
+        Užsidirbote: <strong>@ViewBag.Reward <span class="glyphicon glyphicon-copyright-mark" aria-hidden="true"></span></strong>
+    </div>
+</div>
+
+<div>
+    <ol class="task-list">
+        @foreach (var task in Model)
+        {
+            <li class="form-check @((task.IsCorrect)?"success":"danger")">
+                <span class="@(task.AnswerId != Guid.Empty ? "glyphicon glyphicon-ok" : "")"></span>
+                <span>@Html.Raw(HttpUtility.HtmlDecode(task.HtmlTask))</span>
+            </li>
+            rowNo++;
+        }
+        <li></li>
+    </ol>
+</div>
+
+<table class="table table-condensed table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th></th>
+            <th>Įrašytas atsakymas</th>
+            <th>Teisingas atsakymas</th>
+            <th>Užduotis</th>
+        </tr>
+    </thead>
+    @foreach (var task in Model)
+    {
+        <tbody>
+            <tr class=@((task.IsCorrect)?"success":"danger")>
+                <td>@rowNo</td>
+                <td class="col-md-1"><span class="@(task.AnswerId != Guid.Empty ? "glyphicon glyphicon-ok" : "")"></span></td>
+                <td>@task.UserAnswer</td>
+                <td>@task.CorrectAnswer</td>
+                <td class="col-md-1 text-center"><h4>@Html.Raw(HttpUtility.HtmlDecode(task.HtmlTask))</h4></td>
+            </tr>
+        </tbody>
+        rowNo++;
+    }
+
+</table>

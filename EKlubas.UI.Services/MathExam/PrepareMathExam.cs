@@ -1,7 +1,6 @@
 ﻿using EKlubas.Application;
 using EKlubas.Contracts.Persistence;
 using EKlubas.Contracts.Services;
-using EKlubas.Contracts.Services.Math;
 using EKlubas.Domain;
 using EKlubas.Persistence;
 using System;
@@ -10,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EKlubas.UI.Services.MathExam
+namespace EKlubas.UI.Services
 {
     public class PrepareMathExam : IPrepareExam
     {

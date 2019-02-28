@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using EKlubas.Common.Services;
-using EKlubas.Contracts.Services.Math.Equality;
+using EKlubas.Contracts.Services;
 using EKlubas.Domain;
 using EKlubas.Domain.DTO;
 using EKlubas.Domain.DTO.Classifiers;
 
-namespace EKlubas.UI.Services.Math.Equality
+namespace EKlubas.UI.Services
 {
     public class Equation : IEquation
     {
