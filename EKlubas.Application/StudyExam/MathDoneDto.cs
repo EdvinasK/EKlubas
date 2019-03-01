@@ -14,7 +14,12 @@ namespace EKlubas.Application
         public string HtmlTask { get; set; }
         public bool IsCorrect { get; set; }
         public string CorrectAnswer { get; set; }
-        public string UserAnswer { get; set; }
+        private string _userAnswer;
+        public string UserAnswer
+        {
+            get { return _userAnswer; }
+            set { _userAnswer = string.Format("{0:0.00}", value.Replace(",",".")); }
+        }
 
         public MathDoneDto() : base() { }
         public MathDoneDto(Fraction fraction, Fraction drawingFraction) : base(fraction, drawingFraction) { }

@@ -93,7 +93,7 @@ namespace EKlubas.UI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> MathExam(FinishedExamDto<MathDoneDto> finishedExam) // NOTE Just a placeholder for now
+        public async Task<IActionResult> MathExam(FinishedExamDto<MathDoneDto> finishedExam)
         {
             var exam = await _context.StudyExams
                             .Where(se => se.Id == finishedExam.ExamId)
@@ -107,8 +107,7 @@ namespace EKlubas.UI.Controllers
             var reward = 0;
             var score = 0;
             var finishedExamAnswers = finishedExam.ExamAnswers.ToList();
-            finishedExamAnswers.ForEach(fea => fea.CorrectAnswer = exam.StudyExamResults.Where(ser => ser.Id == fea.TextAnswerId).SingleOrDefault().Answer);
-            //finishedExamAnswers.ForEach(fea => fea.IsCorrect = exam.StudyExamResults.Where(ser => ser.Answer == fea.UserAnswer).SingleOrDefault()!=null?true:false);
+            finishedExamAnswers.ForEach(fea => fea.CorrectAnswer = exam.StudyExamResults.Where(ser => ser.Id == fea.TextAnswerId).SingleOrDefault().Answer); //TODO should be moved somewhere else. Problem when evaluating ex: 15.2 = 15.20. Needs size modification.
 
             score = evaluateExam.Exec(finishedExamAnswers, exam, EvaluationFactory.GetPrepareTaskCommand("RealNumber")).Score;
             reward = rewardService.CalculateCoinReward(score, exam.PassMark, exam.Reward, exam.IsNew);
