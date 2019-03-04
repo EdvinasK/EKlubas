@@ -19,27 +19,39 @@
     <p>Visas teisingas lygybes pažymėkite varnele, o kada norėsite užbaigti spauskite "Užbaigti testą".</p>
 </div>
 
-<div>
-    <form method="post">
-        <input name="ExamId" type="hidden" value="@Model.StudyExam.Id" />
-        <ol class="task-list">
-            @foreach (var task in Model.Tasks)
-            {
-                <li>
-                    <input name="ExamAnswers[@(rowNo-1)].HtmlTask" type="hidden" value="@task.Value" />
-                    <input name="ExamAnswers[@(rowNo-1)].TextAnswerId" type="hidden" value="@task.Key" />
-                    <span class="form-check-label task-list-item">@Html.Raw(HttpUtility.HtmlDecode(@task.Value)) = </span>
-                    <input class="form-check-input" size="5" type="text" name="ExamAnswers[@(rowNo-1)].UserAnswer" id="@task.Key">
-
-                </li>
-                rowNo++;
-            }
-            <li></li>
-        </ol>
-        <div>
-            <button type="submit" class="btn btn-primary btn-lg" data-toggle="tooltip" data-placement="right" title="Spauskite tik tada kada varnele pažymėjote visus teisingus atsakymus.">
-                <h4>Užbaigti testą <span class="glyphicon glyphicon-ok" aria-hidden="true"></span></h4>
-            </button>
-        </div>
-    </form>
+<div class="row">
+    <div class="col-md-6">
+        <form method="post">
+            <input name="ExamId" type="hidden" value="@Model.StudyExam.Id" />
+            <table class="table table-condensed table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th class="text-right">#</th>
+                        <th class="text-center">Užduotis</th>
+                        <th class="text-center">Atsakymas</th>
+                    </tr>
+                </thead>
+                @foreach (var task in Model.Tasks)
+                {
+                    <tbody>
+                        <tr>
+                            <td class="col-md-1 text-right">@rowNo.</td>
+                            <td class="col-md-2"><span class="form-check-label task-list-item">@Html.Raw(HttpUtility.HtmlDecode(@task.Value))</span></td>
+                            <td class="col-md-1 text-center">
+                                <input name="ExamAnswers[@(rowNo-1)].HtmlTask" type="hidden" value="@task.Value" />
+                                <input name="ExamAnswers[@(rowNo-1)].TextAnswerId" type="hidden" value="@task.Key" />
+                                <input class="form-control" type="text" name="ExamAnswers[@(rowNo-1)].UserAnswer" id="@task.Key">
+                            </td>
+                        </tr>
+                    </tbody>
+                    rowNo++;
+                }
+            </table>
+            <div>
+                <button type="submit" class="btn btn-primary btn-lg" data-toggle="tooltip" data-placement="right" title="Spauskite tik tada kada varnele pažymėjote visus teisingus atsakymus.">
+                    <h4>Užbaigti testą <span class="glyphicon glyphicon-ok" aria-hidden="true"></span></h4>
+                </button>
+            </div>
+        </form>
+    </div>
 </div>
