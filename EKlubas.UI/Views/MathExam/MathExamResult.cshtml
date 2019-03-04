@@ -17,42 +17,25 @@
     </div>
 </div>
 
-<div>
-    <ol class="task-list">
-        @foreach (var task in Model)
-        {
-            <li class="form-check @((task.IsCorrect)?"success":"danger")">
-                <span class="@(task.AnswerId != Guid.Empty ? "glyphicon glyphicon-ok" : "")"></span>
-                <span>@Html.Raw(HttpUtility.HtmlDecode(task.HtmlTask))</span>
-            </li>
-            rowNo++;
-        }
-        <li></li>
-    </ol>
-</div>
-
-
 <div class="row">
     <div class="col-md-6">
         <table class="table table-condensed table-bordered table-striped">
             <thead>
                 <tr>
-                    <th>#</th>
-                    <th></th>
-                    <th>Įrašytas atsakymas</th>
-                    <th>Teisingas atsakymas</th>
-                    <th>Užduotis</th>
+                    <th class="text-right">#</th>
+                    <th class="text-center">Įrašytas atsakymas</th>
+                    <th class="text-center">Teisingas atsakymas</th>
+                    <th class="text-center">Užduotis</th>
                 </tr>
             </thead>
             @foreach (var task in Model)
             {
                 <tbody>
                     <tr class=@((task.IsCorrect)?"success":"danger")>
-                        <td class="col-md-1">@rowNo</td>
-                        <td class="col-md-1"><span class="@(task.IsCorrect ? "glyphicon glyphicon-ok" : "")"></span></td>
+                        <td class="col-md-1 text-right"> <span class="@(task.IsCorrect ? "glyphicon glyphicon-ok" : "")"></span>@rowNo.</td>
                         <td class="col-md-2">@task.UserAnswer</td>
                         <td class="col-md-2">@task.CorrectAnswer</td>
-                        <td class="col-md-3 text-center"><h4>@Html.Raw(HttpUtility.HtmlDecode(task.HtmlTask))</h4></td>
+                        <td class="col-md-3 text-center"><strong>@Html.Raw(HttpUtility.HtmlDecode(task.HtmlTask))</strong></td>
                     </tr>
                 </tbody>
                 rowNo++;

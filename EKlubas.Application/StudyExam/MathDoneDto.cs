@@ -18,7 +18,11 @@ namespace EKlubas.Application
         public string UserAnswer
         {
             get { return _userAnswer; }
-            set { _userAnswer = string.Format("{0:0.00}", value.Replace(",",".")); }
+            set
+            {
+                var successParse = decimal.TryParse(value, out var parsedValue);
+                _userAnswer = successParse ? string.Format("{0:0.00}", parsedValue) : "0";
+            }
         }
 
         public MathDoneDto() : base() { }
