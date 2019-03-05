@@ -102,17 +102,15 @@ namespace EKlubas.UI.Controllers
 
             var user = await _manager.GetUserAsync(HttpContext.User);
             var evaluateExam = new EvaluateExam();
-            var rewardService = new RewardServices();
-            var rewardHistory = new RewardHistory();
             var reward = 0;
             var score = 0;
             var finishedExamAnswers = finishedExam.ExamAnswers.ToList();
             finishedExamAnswers.ForEach(fea => fea.CorrectAnswer = exam.StudyExamResults.Where(ser => ser.Id == fea.TextAnswerId).SingleOrDefault().Answer); //TODO should be moved somewhere else. Problem when evaluating ex: 15.2 = 15.20. Needs size modification.
 
             score = evaluateExam.Exec(finishedExamAnswers, exam, EvaluationFactory.GetPrepareTaskCommand("RealNumber")).Score;
-            reward = rewardService.CalculateCoinReward(score, exam.PassMark, exam.Reward, exam.IsNew);
+            reward = RewardServices.CalculateCoinReward(score, exam.PassMark, exam.Reward, exam.IsNew);
 
-            await AddRewardToUser(user, rewardHistory, reward);
+            await AddRewardToUser(user, reward);
             _context.StudyExams.Remove(exam);
             await _context.SaveChangesAsync();
 
@@ -161,7 +159,6 @@ namespace EKlubas.UI.Controllers
                             .SingleOrDefaultAsync();
 
             var user = await _manager.GetUserAsync(HttpContext.User);
-            var rewardService = new RewardServices();
             var rewardHistory = new RewardHistory();
             var userCorrectAnswers = 0;
             var finishedExamAnswers = finishedExam.ExamAnswers.ToList();
@@ -198,8 +195,8 @@ namespace EKlubas.UI.Controllers
                                                         examTotalAnswersCount);
 
             var score = Convert.ToInt32(Math.Round(markCoefficient));
-            var reward = rewardService.CalculateCoinReward(score, exam.PassMark, exam.Reward, exam.IsNew);
-            await AddRewardToUser(user, rewardHistory, reward);
+            var reward = RewardServices.CalculateCoinReward(score, exam.PassMark, exam.Reward, exam.IsNew);
+            await AddRewardToUser(user, reward);
             _context.StudyExams.Remove(exam);
             await _context.SaveChangesAsync();
 
@@ -253,7 +250,6 @@ namespace EKlubas.UI.Controllers
                             .SingleOrDefaultAsync();
 
             var user = await _manager.GetUserAsync(HttpContext.User);
-            var rewardService = new RewardServices();
             var rewardHistory = new RewardHistory();
             var reward = 0;
             var userCorrectAnswers = 0;
@@ -291,8 +287,8 @@ namespace EKlubas.UI.Controllers
                                                         userTotalAnswersCount,
                                                         examTotalAnswersCount);
             score = Convert.ToInt32(Math.Round(markCoefficient));
-            reward = rewardService.CalculateCoinReward(score, exam.PassMark, exam.Reward, exam.IsNew);
-            await AddRewardToUser(user, rewardHistory, reward);
+            reward = RewardServices.CalculateCoinReward(score, exam.PassMark, exam.Reward, exam.IsNew);
+            await AddRewardToUser(user, reward);
             _context.StudyExams.Remove(exam);
             await _context.SaveChangesAsync();
 
@@ -330,8 +326,6 @@ namespace EKlubas.UI.Controllers
                             .SingleOrDefaultAsync();
 
             var user = await _manager.GetUserAsync(HttpContext.User);
-            var rewardService = new RewardServices();
-            var rewardHistory = new RewardHistory();
             var reward = 0;
             var userCorrectAnswers = 0;
             var score = 0;
@@ -370,9 +364,9 @@ namespace EKlubas.UI.Controllers
                                                         userTotalAnswersCount,
                                                         examTotalAnswersCount);
             score = Convert.ToInt32(Math.Round(markCoefficient));
-            reward = rewardService.CalculateCoinReward(score, exam.PassMark, exam.Reward, exam.IsNew);
+            reward = RewardServices.CalculateCoinReward(score, exam.PassMark, exam.Reward, exam.IsNew);
 
-            await AddRewardToUser(user, rewardHistory, reward);
+            await AddRewardToUser(user, reward);
             _context.StudyExams.Remove(exam);
             await _context.SaveChangesAsync();
 
@@ -397,8 +391,10 @@ namespace EKlubas.UI.Controllers
             return View(model);
         }
 
-        private async Task AddRewardToUser(EKlubasUser user, RewardHistory rewardHistory, int reward)
+        private async Task AddRewardToUser(EKlubasUser user, int reward)
         {
+            var rewardHistory = new RewardHistory();
+
             if (reward != 0)
             {
                 rewardHistory.ReceiveTime = DateTime.Now;

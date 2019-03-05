@@ -32,7 +32,7 @@
             {
                 <tbody>
                     <tr class=@((task.IsCorrect)?"success":"danger")>
-                        <td class="col-md-1 text-right"> <span class="@(task.IsCorrect ? "glyphicon glyphicon-ok" : "")"></span>@rowNo.</td>
+                        <td class="col-md-1 text-right"><span class="@(task.IsCorrect ? "glyphicon glyphicon-ok" : "")"></span> @rowNo.</td>
                         <td class="col-md-2">@task.UserAnswer</td>
                         <td class="col-md-2">@task.CorrectAnswer</td>
                         <td class="col-md-3 text-center"><strong>@Html.Raw(HttpUtility.HtmlDecode(task.HtmlTask))</strong></td>

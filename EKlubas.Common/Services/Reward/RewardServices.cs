@@ -8,9 +8,9 @@ namespace EKlubas.Common.Services
 {
     public class RewardServices
     {
-        private decimal Bonus = 1.15M;
+        private static decimal Bonus = 1.15M;
 
-        public int CalculateCoinReward(int markPercentage, int passMark, int baseReward, bool isNew)
+        public static int CalculateCoinReward(int markPercentage, int passMark, int baseReward, bool isNew)
         {
             if (markPercentage < passMark)
                 return 0;
