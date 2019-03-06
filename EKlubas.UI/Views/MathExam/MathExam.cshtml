@@ -20,7 +20,7 @@
 </div>
 
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-4">
         <form method="post">
             <input name="ExamId" type="hidden" value="@Model.StudyExam.Id" />
             <table class="table table-condensed table-bordered table-striped">
@@ -36,7 +36,7 @@
                     <tbody>
                         <tr>
                             <td class="col-md-1 text-right">@rowNo.</td>
-                            <td class="col-md-2"><span class="form-check-label task-list-item">@Html.Raw(HttpUtility.HtmlDecode(@task.Value))</span></td>
+                            <td class="col-md-2 text-right"><span class="form-check-label task-list-item">@Html.Raw(HttpUtility.HtmlDecode(@task.Value))</span></td>
                             <td class="col-md-1 text-center">
                                 <input name="ExamAnswers[@(rowNo-1)].HtmlTask" type="hidden" value="@task.Value" />
                                 <input name="ExamAnswers[@(rowNo-1)].TextAnswerId" type="hidden" value="@task.Key" />
@@ -47,7 +47,7 @@
                     rowNo++;
                 }
             </table>
-            <div>
+            <div class="text-right">
                 <button type="submit" class="btn btn-primary btn-lg" data-toggle="tooltip" data-placement="right" title="Spauskite tik tada kada varnele pažymėjote visus teisingus atsakymus.">
                     <h4>Užbaigti testą <span class="glyphicon glyphicon-ok" aria-hidden="true"></span></h4>
                 </button>

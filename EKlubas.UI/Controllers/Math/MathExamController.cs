@@ -84,7 +84,7 @@ namespace EKlubas.UI.Controllers
             var user = await _manager.GetUserAsync(HttpContext.User);
             var studyTopic = await _context.StudyTopics.SingleOrDefaultAsync(st => st.Id == studyTopicId);
             var prepareExam = new PrepareMathExam();
-            var examDto = await prepareExam.ExecuteAsync(studyTopic, user, _context, PrepareTaskFactory.GetPrepareTaskCommand("RealNumber")); // TODO should take the string from StudyTopic table
+            var examDto = await prepareExam.ExecuteAsync(studyTopic, user, _context, PrepareTaskFactory.GetPrepareTaskCommand(studyTopic.TaskName)); // TODO should take the string from StudyTopic table
 
             if(examDto == null)
                 return RedirectToAction("MathExamCatalog", nameof(MathExamController).Replace("Controller", ""));
@@ -107,7 +107,7 @@ namespace EKlubas.UI.Controllers
             var finishedExamAnswers = finishedExam.ExamAnswers.ToList();
             finishedExamAnswers.ForEach(fea => fea.CorrectAnswer = exam.StudyExamResults.Where(ser => ser.Id == fea.TextAnswerId).SingleOrDefault().Answer); //TODO should be moved somewhere else. Problem when evaluating ex: 15.2 = 15.20. Needs size modification.
 
-            score = evaluateExam.Exec(finishedExamAnswers, exam, EvaluationFactory.GetPrepareTaskCommand("RealNumber")).Score;
+            score = evaluateExam.Exec(finishedExamAnswers, exam, EvaluationFactory.GetTaskEvaluationCommand(exam.TaskName)).Score;
             reward = RewardServices.CalculateCoinReward(score, exam.PassMark, exam.Reward, exam.IsNew);
 
             await AddRewardToUser(user, reward);

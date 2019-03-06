@@ -13,6 +13,7 @@ namespace EKlubas.Domain
         public string ExamDescription { get; set; }
         public string Link { get; set; }
         public string Topic { get; set; }
+        public string TaskName { get; set; }
         public int DifficultyLevel { get; set; }
         public int DurationInMinutes { get; set; }
         public int Reward { get; set; }

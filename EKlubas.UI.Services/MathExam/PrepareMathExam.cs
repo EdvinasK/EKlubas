@@ -18,7 +18,7 @@ namespace EKlubas.UI.Services
                                                 IApplicationDbContext _context,
                                                 IPrepareTaskCommand<IExam> prepareTaskCommand)
         {
-            var studyExam = new StudyExam(studyTopic.PassMark, studyTopic.Reward, studyTopic.DurationInMinutes, user, studyTopic.IsNew);
+            var studyExam = new StudyExam(studyTopic, user);
 
             var equalityTasksAndResults = await prepareTaskCommand.ExecuteAsync(studyExam, _context);
 

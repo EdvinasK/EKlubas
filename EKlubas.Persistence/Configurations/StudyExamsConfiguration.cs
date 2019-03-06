@@ -30,6 +30,10 @@ namespace EKlubas.Persistence.Configurations
             entity.Property(e => e.Reward)
                 .HasDefaultValueSql("10");
 
+            entity.Property(e => e.TaskName)
+                .HasDefaultValue("-")
+                .IsRequired();
+
             entity.Property(e => e.CreatedTime)
                 .HasColumnType("datetime")
                 .HasDefaultValueSql("'1900-01-01T00:00:00.000'");

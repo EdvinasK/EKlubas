@@ -8,7 +8,7 @@ namespace EKlubas.UI.Services.Factories
 {
     public static class EvaluationFactory
     {
-        public static IEvaluateExamCommand GetPrepareTaskCommand(string taskTypeName)
+        public static IEvaluateExamCommand GetTaskEvaluationCommand(string taskTypeName)
         {
             IEvaluateExamCommand evaluateExamCommand = null;
 

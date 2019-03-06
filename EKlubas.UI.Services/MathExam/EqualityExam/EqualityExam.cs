@@ -19,7 +19,7 @@ namespace EKlubas.UI.Services
             var mathTask = new Equation();
             var equalityTasks = new EqualityExamDto<string>();
             // var answerId = Guid.Empty;
-            var studyExam = new StudyExam(studyTopic.PassMark, studyTopic.Reward, studyTopic.DurationInMinutes, user, studyTopic.IsNew);
+            var studyExam = new StudyExam(studyTopic, user);
 
             var equalityTasksAndResults = mathTask.GetEqualityTaskAndResult(studyTopic.DifficultyLevel);
 
