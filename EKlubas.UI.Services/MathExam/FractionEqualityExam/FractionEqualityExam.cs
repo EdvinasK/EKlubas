@@ -21,7 +21,7 @@ namespace EKlubas.UI.Services
             var fractionRight = new Fraction();
             int numerator, denominator = 0;
             var taskRandomizer = 0;
-            var studyExam = new StudyExam(studyTopic.PassMark, studyTopic.Reward, studyTopic.DurationInMinutes, user, studyTopic.IsNew);
+            var studyExam = new StudyExam(studyTopic, user);
 
             for (int i = 0; i < 30; i++)
             {

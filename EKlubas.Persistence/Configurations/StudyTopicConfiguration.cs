@@ -26,6 +26,10 @@ namespace EKlubas.Persistence.Configurations
             entity.Property(e => e.Topic)
                 .IsRequired();
 
+            entity.Property(e => e.TaskName)
+                .HasDefaultValue("-")
+                .IsRequired();
+
             entity.Property(e => e.IsExamPrepared)
                 .HasDefaultValue("false");
 

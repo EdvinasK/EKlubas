@@ -13,6 +13,7 @@ namespace EKlubas.Domain
         public int PassMark { get; set; }
         public int Reward { get; set; }
         public bool IsNew { get; set; }
+        public string TaskName { get; set; }
         public ICollection<StudyExamAnswer> StudyExamResults { get; set; }
         public DateTime CreatedTime { get; set; }
         public DateTime EndDate { get; set; }
@@ -24,13 +25,14 @@ namespace EKlubas.Domain
             CreatedTime = DateTime.Now;
         }
 
-        public StudyExam(int passMark, int reward, int examDurationInMin, EKlubasUser user, bool isNew) : this()
+        public StudyExam(StudyTopic studyTopic, EKlubasUser user) : this()
         {
-            PassMark = passMark;
-            Reward = reward;
-            EndDate = DateTime.Now.AddMinutes(examDurationInMin);
+            PassMark = studyTopic.PassMark;
+            Reward = studyTopic.Reward;
+            EndDate = DateTime.Now.AddMinutes(studyTopic.DurationInMinutes);
             User = user;
-            IsNew = isNew;
+            IsNew = studyTopic.IsNew;
+            TaskName = studyTopic.TaskName;
         }
     }
 }
