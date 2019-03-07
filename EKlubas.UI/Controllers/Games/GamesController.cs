@@ -17,5 +17,10 @@ namespace EKlubas.UI.Controllers.Games
         {
             return View();
         }
+
+        public IActionResult TestGame()
+        {
+            return View();
+        }
     }
 }
